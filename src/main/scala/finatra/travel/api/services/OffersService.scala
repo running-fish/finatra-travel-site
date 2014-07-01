@@ -24,19 +24,22 @@ class OffersService(host: String, baseUrl: String) {
   private val client = new SomethingOrNothingRestClient(host)
 
   def offers(profile: Option[Profile], loyalty: Option[Loyalty]): Future[List[Offer]] = {
-    val queryString = List(profileQueryString(profile), loyaltyQueryString(loyalty)).flatten.mkString("?", "&", "")
-    client.get[List[Offer]](baseUrl + queryString, List.empty)
+    client.get[List[Offer]](baseUrl + queryString(profile, loyalty), List.empty)
   }
 
-  def profileQueryString(profile: Option[Profile]) = {
+  private [services] def queryString(profile: Option[Profile], loyalty: Option[Loyalty]) = {
+    List(profileQueryString(profile), loyaltyQueryString(loyalty)).flatten.mkString("?", "&", "")
+  }
+
+  private def profileQueryString(profile: Option[Profile]) = {
     profile map { p =>
-      s"lifecycle=${p.lifecycle.toString.toLowerCase}&spending=${p.spending.toString.toLowerCase}&gender=${p.gender.toString.toLowerCase}"
+      s"lifecycle=${p.lifecycle.toLowerCase}&spending=${p.spending.toLowerCase}&gender=${p.gender.toLowerCase}"
     }
   }
 
-  def loyaltyQueryString(loyalty: Option[Loyalty]) = {
+  private def loyaltyQueryString(loyalty: Option[Loyalty]) = {
     loyalty map { l =>
-      s"loyalty=${l.group.toString.toLowerCase}&points=${l.points.toString}"
+      s"loyalty=${l.group.toString}"
     }
   }
 

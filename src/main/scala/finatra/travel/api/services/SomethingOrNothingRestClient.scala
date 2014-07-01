@@ -51,7 +51,9 @@ class SomethingOrNothingRestClient(host: String) {
         f(result)
       }
     } rescue {
-      case e => Future.value(defaultValue)
+      case e => {
+        Future.value(defaultValue)
+      }
     }
   }
 }

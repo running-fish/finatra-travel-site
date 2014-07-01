@@ -17,12 +17,7 @@ package finatra.travel.api.services
 
 import com.twitter.util.Future
 
-object Group extends Enumeration {
-  type Group = Value
-  val Bronze, Silver, Gold = Value
-}
-
-case class Loyalty(group: Group.Group, points: Int)
+case class Loyalty(group: String, points: Int)
 
 class LoyaltyService(host: String, baseUrl: String) {
 
@@ -30,7 +25,7 @@ class LoyaltyService(host: String, baseUrl: String) {
 
   def loyalty(id: Option[String]): Future[Option[Loyalty]] = {
     id match {
-      case Some(userId) => client.get(s"$baseUrl/user/$userId")
+      case Some(userId) => client.get[Loyalty](s"$baseUrl/user/$userId")
       case _ => Future.value(None)
     }
   }

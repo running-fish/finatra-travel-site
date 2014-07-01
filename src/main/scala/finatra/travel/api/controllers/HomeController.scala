@@ -16,19 +16,18 @@
 package finatra.travel.api.controllers
 
 import com.twitter.finatra.Controller
-import finatra.travel.api.services.{OffersService, LoyaltyService, ProfileService}
-import com.twitter.util.Future
+import finatra.travel.api.services._
 
 class HomeController(profileService: ProfileService, loyaltyService: LoyaltyService, offersService: OffersService) extends Controller {
 
   get("/home") {
     request => {
-      val userId = request.params.get("id")
+      val userId = request.params.get("user")
 
-      val userData = Future.join(
-        profileService.profile(userId),
-        loyaltyService.loyalty(userId)
-      )
+      val userData = for {
+        profile <- profileService.profile(userId)
+        loyalty <- loyaltyService.loyalty(userId)
+      } yield (profile, loyalty)
 
       userData flatMap {
         data => {
