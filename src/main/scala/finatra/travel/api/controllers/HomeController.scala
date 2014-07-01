@@ -16,19 +16,10 @@
 package finatra.travel.api.controllers
 
 import com.twitter.finatra.Controller
-import com.twitter.finagle.HttpClient
-import org.jboss.netty.handler.codec.http.{HttpMethod, HttpVersion, DefaultHttpRequest}
-import org.jboss.netty.util.CharsetUtil
-import com.fasterxml.jackson.module.scala.DefaultScalaModule
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
-import finatra.travel.api.services.{Offer, OffersService, LoyaltyService, ProfileService}
+import finatra.travel.api.services.{OffersService, LoyaltyService, ProfileService}
 import com.twitter.util.Future
 
 class HomeController(profileService: ProfileService, loyaltyService: LoyaltyService, offersService: OffersService) extends Controller {
-
-  val mapper = new ObjectMapper() with ScalaObjectMapper
-  mapper.registerModule(DefaultScalaModule)
 
   get("/home") {
     request => {
