@@ -16,12 +16,12 @@
 package finatra.travel.api
 
 import com.twitter.finatra._
-import com.twitter.finatra.ContentType._
 import finatra.travel.api.controllers.HomeController
 import finatra.travel.api.services.{OffersService, LoyaltyService, ProfileService}
 
 object App extends FinatraServer {
 
+  // temporary hack
   System.setProperty("com.twitter.finatra.config.port", ":9100")
 
   val profileServiceHost = flag("profileServiceHost", "localhost:9200", "The host:port for the Profile Service")
