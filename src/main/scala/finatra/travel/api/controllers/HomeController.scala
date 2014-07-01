@@ -7,10 +7,8 @@ import org.jboss.netty.util.CharsetUtil
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
-import finatra.travel.api.services.{OffersService, LoyaltyService, ProfileService}
+import finatra.travel.api.services.{Offer, OffersService, LoyaltyService, ProfileService}
 import com.twitter.util.Future
-
-case class Offer(title: String, details: String, image: String)
 
 class HomeController(profileService: ProfileService, loyaltyService: LoyaltyService, offersService: OffersService) extends Controller {
 
