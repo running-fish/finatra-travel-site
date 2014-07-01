@@ -30,26 +30,6 @@ class HomeController(profileService: ProfileService, loyaltyService: LoyaltyServ
   val mapper = new ObjectMapper() with ScalaObjectMapper
   mapper.registerModule(DefaultScalaModule)
 
-  get("/homeOld") {
-    request => {
-      val factory = HttpClient.newClient("localhost:9200")
-      val client = factory.toService
-
-      val futureOffers = client(new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, "/offers"))
-
-      futureOffers map {
-        res => {
-          println(res)
-          val responseString = res.getContent().toString(CharsetUtil.UTF_8)
-          val offers = mapper.readValue[List[Offer]](responseString)
-          render.json(offers)
-        }
-      } rescue {
-        case e => render.plain(e.toString).toFuture
-      }
-    }
-  }
-
   get("/home") {
     request => {
       val userId = request.params.get("id")
