@@ -31,9 +31,7 @@ class SomethingOrNothingRestClient(host: String) {
 
     service(request) map {
       response => {
-        println("Status:" + response.getStatus)
         val body = response.getContent.toString(CharsetUtil.UTF_8)
-        println("Response:" + body)
         val result = mapper.readValue[R](body)
         f(result)
       }
