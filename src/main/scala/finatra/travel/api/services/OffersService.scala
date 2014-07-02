@@ -39,7 +39,7 @@ class OffersService(host: String, baseUrl: String) {
 
   private def loyaltyQueryString(loyalty: Option[Loyalty]) = {
     loyalty map { l =>
-      s"loyalty=${l.group.toString}"
+      s"loyalty=${l.group.toLowerCase}"
     }
   }
 

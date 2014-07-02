@@ -16,6 +16,7 @@
 package finatra.travel.api.services
 
 import com.twitter.util.Future
+import finatra.travel.api.controllers.User
 
 case class Loyalty(group: String, points: Int)
 
@@ -23,9 +24,9 @@ class LoyaltyService(host: String, baseUrl: String) {
 
   private val client = new SomethingOrNothingRestClient(host)
 
-  def loyalty(id: Option[String]): Future[Option[Loyalty]] = {
-    id match {
-      case Some(userId) => client.get[Loyalty](s"$baseUrl/user/$userId")
+  def loyalty(user: Option[User]): Future[Option[Loyalty]] = {
+    user match {
+      case Some(u) => client.get[Loyalty](s"$baseUrl/user/${u.id}")
       case _ => Future.value(None)
     }
   }

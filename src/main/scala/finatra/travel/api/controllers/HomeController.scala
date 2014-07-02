@@ -21,19 +21,23 @@ import finatra.travel.api.services._
 class HomeController(profileService: ProfileService, loyaltyService: LoyaltyService, offersService: OffersService) extends Controller {
 
   get("/home") {
-    request => {
-      val userId = request.params.get("user")
+    OptionalAuth {
+      request => {
 
-      val userData = for {
-        profile <- profileService.profile(userId)
-        loyalty <- loyaltyService.loyalty(userId)
-      } yield (profile, loyalty)
+        val futureProfile = profileService.profile(request.user)
+        val futureLoyalty = loyaltyService.loyalty(request.user)
 
-      userData flatMap {
-        data => {
-          offersService.offers(data._1, data._2) map {
-            offers => {
-              render.json(offers)
+        val userData = for {
+          profile <- futureProfile
+          loyalty <- futureLoyalty
+        } yield (profile, loyalty)
+
+        userData flatMap {
+          data => {
+            offersService.offers(data._1, data._2) map {
+              offers => {
+                render.json(offers)
+              }
             }
           }
         }

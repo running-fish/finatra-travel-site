@@ -16,6 +16,7 @@
 package finatra.travel.api.services
 
 import com.twitter.util.Future
+import finatra.travel.api.controllers.User
 
 case class Profile(lifecycle: String, spending: String, gender: String)
 
@@ -23,9 +24,9 @@ class ProfileService(host: String, baseUrl: String) {
 
   private val client = new SomethingOrNothingRestClient(host)
 
-  def profile(id: Option[String]): Future[Option[Profile]] = {
-    id match {
-      case Some(userId) => client.get[Profile](s"$baseUrl/user/$userId")
+  def profile(user: Option[User]): Future[Option[Profile]] = {
+    user match {
+      case Some(u) => client.get[Profile](s"$baseUrl/user/${u.id}")
       case _ => Future.value(None)
     }
   }
