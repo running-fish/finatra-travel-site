@@ -22,14 +22,12 @@ import com.twitter.util.Future
 
 class OptionalUserRequest(request: FinagleRequest, val user: Option[User]) extends Request(request)
 
-class AuthController(userService: UserService) extends Controller {
+class AuthController(secret: String, userService: UserService) extends Controller with Session {
 
   object OptionalAuth {
     def apply(action: OptionalUserRequest => Future[ResponseBuilder]): Request => Future[ResponseBuilder] = {
       request => {
-        // TEMP: get user id from request query string ...
-        // TODO: replace this with "session" cookie
-        userService.user(request.params.get("id")) flatMap {
+        userService.user(fromCookies(secret, request.cookies)) flatMap {
           user => action(new OptionalUserRequest(request, user))
         }
       }

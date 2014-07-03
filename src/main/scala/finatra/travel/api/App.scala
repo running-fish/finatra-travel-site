@@ -16,8 +16,8 @@
 package finatra.travel.api
 
 import com.twitter.finatra._
-import finatra.travel.api.controllers.HomeController
-import finatra.travel.api.services.{UserService, OffersService, LoyaltyService, ProfileService}
+import finatra.travel.api.controllers.{LoginController, HomeController}
+import finatra.travel.api.services._
 
 object App extends FinatraServer {
 
@@ -40,11 +40,18 @@ object App extends FinatraServer {
   val userServiceUrl = flag("userServiceUrl", "/user", "The base url for the User Service")
   val userService = new UserService(userServiceHost(), userServiceUrl())
 
+  val loginServiceHost = flag("loginServiceHost", "localhost:9200", "The host:port for the Login Service")
+  val loginServiceUrl = flag("loginServiceUrl", "/login", "The base url for the Login Service")
+  val loginService = new LoginService(loginServiceHost(), loginServiceUrl())
+
+  val applicationSecret = flag("applicationSecret", "woiegjv*j49ux^gew9)ijew,@-,mweHE9d(&dr3$", "The secret used for cookie signing")
+
   premain {
     registerControllers()
   }
 
   def registerControllers() {
-    register(new HomeController(profileService, loyaltyService, offersService, userService))
+    register(new HomeController(applicationSecret(), profileService, loyaltyService, offersService, userService))
+    register(new LoginController(applicationSecret(), loginService))
   }
 }

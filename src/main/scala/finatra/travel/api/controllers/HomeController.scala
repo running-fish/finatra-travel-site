@@ -17,9 +17,9 @@ package finatra.travel.api.controllers
 
 import finatra.travel.api.services._
 
-class HomeController(profileService: ProfileService, loyaltyService: LoyaltyService,
+class HomeController(secret: String, profileService: ProfileService, loyaltyService: LoyaltyService,
                      offersService: OffersService, userService: UserService)
-  extends AuthController(userService) {
+  extends AuthController(secret, userService) {
 
   get("/home") {
     OptionalAuth {

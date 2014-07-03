@@ -29,7 +29,7 @@ class HomeControllerSpec extends FlatSpecHelper with ShouldMatchers with WireMoc
   val userService = new UserService(host, "/user")
 
   override val server = new FinatraServer
-  server.register(new HomeController(profileService, loyaltyService, offersService, userService))
+  server.register(new HomeController("oweigowghoweihgowhgowehg", profileService, loyaltyService, offersService, userService))
 
   "Home Controller" should "return a list of offers" in {
     stubGet("/offers",
