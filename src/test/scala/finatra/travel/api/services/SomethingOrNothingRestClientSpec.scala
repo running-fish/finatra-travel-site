@@ -19,8 +19,12 @@ import org.scalatest.FlatSpec
 import org.scalatest.matchers.ShouldMatchers
 import com.twitter.util.{Duration, Await}
 import com.github.tomakehurst.wiremock.client.WireMock._
+import com.github.tomakehurst.wiremock.verification.LoggedRequest
+import scala.collection.JavaConverters._
 
 case class Person(name: String, age: Int)
+
+case class PostResult(status: Int, message: String)
 
 class SomethingOrNothingRestClientSpec extends FlatSpec with ShouldMatchers with WireMockSupport {
 
@@ -96,11 +100,26 @@ class SomethingOrNothingRestClientSpec extends FlatSpec with ShouldMatchers with
   it should "return None if the remote server returns 500" in {
     stubFor(get(urlEqualTo("/person/123")).
       willReturn(aResponse().
-      withStatus(500)))
+        withStatus(500)))
 
     val future = client.get[Person]("/person/123")
     val people = Await.result(future, Duration.fromSeconds(3))
 
     people should be(None)
+  }
+
+  "Rest Client post" should "post the body as json and return Some(PostResult)" in {
+    stubFor(post(urlEqualTo("/login")).
+      withHeader("Content-Type", equalTo("application/json")).
+      withRequestBody(equalToJson("{ \"name\":\"bill\", \"age\":23 }")).
+      willReturn(aResponse().
+        withStatus(200).
+        withHeader("Content-Type", "application/json").
+        withBody("{ \"status\":0, \"message\":\"success\"}")))
+
+    val future = client.post[Person, PostResult]("/login", Person("bill", 23))
+    val result = Await.result(future, Duration.fromSeconds(3))
+
+    result should be(Some(PostResult(0, "success")))
   }
 }

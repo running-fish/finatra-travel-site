@@ -23,6 +23,7 @@ import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import scala.Some
 import org.jboss.netty.util.CharsetUtil
+import org.jboss.netty.buffer.ChannelBuffers
 
 class SomethingOrNothingRestClient(host: String) {
 
@@ -39,16 +40,37 @@ class SomethingOrNothingRestClient(host: String) {
     getInternal[R, R](url, defaultValue) { result => result }
   }
 
+  def post[B, R](url: String, body: B)(implicit manifestB: Manifest[B], manifestR: Manifest[R]): Future[Option[R]] = {
+    val request = new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST, url)
+    request.headers().add("Content-Type", "application/json")
+    request.headers().add("Host", host)
+
+    val content = mapper.writeValueAsString(body)
+    request.setContent(ChannelBuffers.copiedBuffer(content, CharsetUtil.UTF_8))
+    request.headers().add("Content-Length", content.length)
+
+    execute[R, Option[R]](request, None) { result => Some(result) }
+  }
+
   private def getInternal[R, S](url: String, defaultValue: S)(f: R => S)(implicit manifest: Manifest[R]): Future[S] = {
     val request = new DefaultHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.GET, url)
     request.headers().add("Accept", "application/json")
     request.headers().add("Host", host)
+    execute[R, S](request, defaultValue)(f)
+  }
 
+  private def execute[R, S](request: HttpRequest, defaultValue: S)(f: R => S)(implicit manifest: Manifest[R]): Future[S] = {
     service(request) map {
       response => {
-        val body = response.getContent.toString(CharsetUtil.UTF_8)
-        val result = mapper.readValue[R](body)
-        f(result)
+        response.getStatus.getCode match {
+          case 200 => {
+            val body = response.getContent.toString(CharsetUtil.UTF_8)
+            val result = mapper.readValue[R](body)
+            f(result)
+          }
+          case _ => defaultValue
+        }
+
       }
     } rescue {
       case e => {
