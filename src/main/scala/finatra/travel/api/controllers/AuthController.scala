@@ -16,24 +16,23 @@
 package finatra.travel.api.controllers
 
 import com.twitter.finagle.http.{Request => FinagleRequest}
-import com.twitter.finatra.Request
-import com.twitter.finatra.ResponseBuilder
+import finatra.travel.api.services.{User, UserService}
+import com.twitter.finatra.{Request, ResponseBuilder, Controller}
 import com.twitter.util.Future
 
-case class User(id: String)
+class OptionalUserRequest(request: FinagleRequest, val user: Option[User]) extends Request(request)
 
-class OptionalUserRequest(request: FinagleRequest, val user: Option[User]) extends Request(request) {
-}
+class AuthController(userService: UserService) extends Controller {
 
-object OptionalAuth {
-  def apply(action: OptionalUserRequest => Future[ResponseBuilder]): Request => Future[ResponseBuilder] = {
-    request => {
-      // TEMP: get user id from request query string ...
-      // TODO: replace this with "session" cookie and UserService, like the play version
-      val user = request.params.get("id") map {
-        id => User(id)
+  object OptionalAuth {
+    def apply(action: OptionalUserRequest => Future[ResponseBuilder]): Request => Future[ResponseBuilder] = {
+      request => {
+        // TEMP: get user id from request query string ...
+        // TODO: replace this with "session" cookie
+        userService.user(request.params.get("id")) flatMap {
+          user => action(new OptionalUserRequest(request, user))
+        }
       }
-      action(new OptionalUserRequest(request, user))
     }
   }
 }

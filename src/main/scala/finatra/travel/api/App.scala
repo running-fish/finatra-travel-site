@@ -17,7 +17,7 @@ package finatra.travel.api
 
 import com.twitter.finatra._
 import finatra.travel.api.controllers.HomeController
-import finatra.travel.api.services.{OffersService, LoyaltyService, ProfileService}
+import finatra.travel.api.services.{UserService, OffersService, LoyaltyService, ProfileService}
 
 object App extends FinatraServer {
 
@@ -36,5 +36,15 @@ object App extends FinatraServer {
   val offersServiceUrl = flag("offersServiceUrl", "/offers", "The base url for the Offers Service")
   val offersService = new OffersService(offersServiceHost(), offersServiceUrl())
 
-  register(new HomeController(profileService, loyaltyService, offersService))
+  val userServiceHost = flag("userServiceHost", "localhost:9200", "The host:port for the User Service")
+  val userServiceUrl = flag("userServiceUrl", "/user", "The base url for the User Service")
+  val userService = new UserService(userServiceHost(), userServiceUrl())
+
+  premain {
+    registerControllers()
+  }
+
+  def registerControllers() {
+    register(new HomeController(profileService, loyaltyService, offersService, userService))
+  }
 }

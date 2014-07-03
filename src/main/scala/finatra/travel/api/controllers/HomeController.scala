@@ -15,10 +15,11 @@
  */
 package finatra.travel.api.controllers
 
-import com.twitter.finatra.Controller
 import finatra.travel.api.services._
 
-class HomeController(profileService: ProfileService, loyaltyService: LoyaltyService, offersService: OffersService) extends Controller {
+class HomeController(profileService: ProfileService, loyaltyService: LoyaltyService,
+                     offersService: OffersService, userService: UserService)
+  extends AuthController(userService) {
 
   get("/home") {
     OptionalAuth {

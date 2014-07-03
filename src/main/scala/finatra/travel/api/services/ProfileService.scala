@@ -16,7 +16,6 @@
 package finatra.travel.api.services
 
 import com.twitter.util.Future
-import finatra.travel.api.controllers.User
 
 case class Profile(lifecycle: String, spending: String, gender: String)
 
