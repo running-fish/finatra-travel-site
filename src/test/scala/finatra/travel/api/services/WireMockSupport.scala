@@ -42,4 +42,12 @@ trait WireMockSupport extends BeforeAndAfterEach {
         withHeader("Content-Type", "application/json").
         withBody(body)))
   }
+
+  def stubPost(url: String, body: String, response: String) {
+    stubFor(post(urlEqualTo(url)).
+      withRequestBody(equalToJson(body))
+      willReturn(aResponse().
+        withHeader("Content-Type", "application/json").
+        withBody(response)))
+  }
 }
