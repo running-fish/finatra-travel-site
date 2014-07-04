@@ -24,7 +24,7 @@ import com.twitter.util.Future
 class LoginController(secret: String, loginService: LoginService) extends Controller with Session {
 
   val invalidMessage = "Invalid username or password"
-  val errorMessage = "Sorry, but there was a problem verifying your credentials, please try again in a few minutes"
+  val errorMessage = "Sorry, but there was a problem checking your credentials, please try again in a few minutes"
 
   get("/login") {
     request => {
@@ -46,6 +46,8 @@ class LoginController(secret: String, loginService: LoginService) extends Contro
     loginService.login(username, password) flatMap {
       user => verifyUser(user)
     } rescue {
+      // this will never be executed ... the login service returns None if an exception is thrown calling the
+      // remote server ... might want to change that to provide a more informative/useful error?
       case e => loginException(e)
     }
   }
@@ -64,11 +66,11 @@ class LoginController(secret: String, loginService: LoginService) extends Contro
 
   private def userNotFound()(implicit request: Request): Future[ResponseBuilder] = respondTo(request) {
     case _:Json => render.status(404).json(Map("error" -> invalidMessage)).toFuture
-    case _:Html => render.view(new LoginView(Some(invalidMessage))).toFuture
+    case _:Html => render.view(new LoginView(Some(invalidMessage))).status(404).toFuture
   }
 
   private def invalidLoginSubmission()(implicit request: Request): Future[ResponseBuilder] = respondTo(request) {
-    case _:Json => render.status(400).toFuture
+    case _:Json => render.json(Map.empty).status(400).toFuture
     case _:Html => redirect("/").toFuture
   }
 

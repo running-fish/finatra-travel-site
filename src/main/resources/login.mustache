@@ -3,7 +3,9 @@
     <title>Login</title>
 </head>
 <body>
-    {{error}}
+    {{#error}}
+        <span class="formerror">{{error}}</span>
+    {{/error}}
     <form action="/login" method="post">
         Username <input type="text" name="username"/>
         <br/>
