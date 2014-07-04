@@ -24,34 +24,39 @@ object App extends FinatraServer {
   // temporary hack
   System.setProperty("com.twitter.finatra.config.port", ":9100")
 
-  val profileServiceHost = flag("profileServiceHost", "localhost:9200", "The host:port for the Profile Service")
-  val profileServiceUrl = flag("profileServiceUrl", "/profile", "The base url for the Profile Service")
-  val profileService = new ProfileService(profileServiceHost(), profileServiceUrl())
+  private val applicationSecret = flag("applicationSecret",
+    "woiegjv*j49ux^gew9)ijew,@-,mweHE9d(&dr3$", "The secret used for cookie signing")
 
-  val loyaltyServiceHost = flag("loyaltyServiceHost", "localhost:9200", "The host:port for the Loyalty Service")
-  val loyaltyServiceUrl = flag("loyaltyServiceUrl", "/loyalty", "The base url for the Loyalty Service")
-  val loyaltyService = new LoyaltyService(loyaltyServiceHost(), loyaltyServiceUrl())
-
-  val offersServiceHost = flag("offersServiceHost", "localhost:9200", "The host:port for the Offers Service")
-  val offersServiceUrl = flag("offersServiceUrl", "/offers", "The base url for the Offers Service")
-  val offersService = new OffersService(offersServiceHost(), offersServiceUrl())
-
-  val userServiceHost = flag("userServiceHost", "localhost:9200", "The host:port for the User Service")
-  val userServiceUrl = flag("userServiceUrl", "/user", "The base url for the User Service")
-  val userService = new UserService(userServiceHost(), userServiceUrl())
-
-  val loginServiceHost = flag("loginServiceHost", "localhost:9200", "The host:port for the Login Service")
-  val loginServiceUrl = flag("loginServiceUrl", "/login", "The base url for the Login Service")
-  val loginService = new LoginService(loginServiceHost(), loginServiceUrl())
-
-  val applicationSecret = flag("applicationSecret", "woiegjv*j49ux^gew9)ijew,@-,mweHE9d(&dr3$", "The secret used for cookie signing")
-
-  premain {
-    registerControllers()
+  private val profileService = {
+    val profileHost = flag("profile.host", "localhost:9200", "The host:port for the Profile Service")
+    val profileUrl = flag("profile.url", "/profile", "The base url for the Profile Service")
+    new ProfileService(profileHost(), profileUrl())
   }
 
-  def registerControllers() {
-    register(new HomeController(applicationSecret(), profileService, loyaltyService, offersService, userService))
-    register(new LoginController(applicationSecret(), loginService))
+  private val loyaltyService = {
+    val loyaltyHost = flag("loyalty.host", "localhost:9200", "The host:port for the Loyalty Service")
+    val loyaltyUrl = flag("loyalty.url", "/loyalty", "The base url for the Loyalty Service")
+    new LoyaltyService(loyaltyHost(), loyaltyUrl())
   }
+
+  private val offersService = {
+    val offersHost = flag("offers.host", "localhost:9200", "The host:port for the Offers Service")
+    val offersUrl = flag("offers.url", "/offers", "The base url for the Offers Service")
+    new OffersService(offersHost(), offersUrl())
+  }
+  
+  private val userService = {
+    val userHost = flag("user.host", "localhost:9200", "The host:port for the User Service")
+    val userUrl = flag("user.url", "/user", "The base url for the User Service")
+    new UserService(userHost(), userUrl())
+  }
+
+  private val loginService = {
+    val loginHost = flag("login.host", "localhost:9200", "The host:port for the Login Service")
+    val loginUrl = flag("login.url", "/login", "The base url for the Login Service")
+    new LoginService(loginHost(), loginUrl())
+  }
+
+  register(new HomeController(applicationSecret(), profileService, loyaltyService, offersService, userService))
+  register(new LoginController(applicationSecret(), loginService))
 }
