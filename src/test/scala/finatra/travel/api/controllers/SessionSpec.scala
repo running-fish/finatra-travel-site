@@ -129,23 +129,4 @@ class SessionSpec extends FlatSpec with ShouldMatchers with Session with Mockito
     val decoded = fromCookies(secret, cookieMap)
     decoded should be(None)
   }
-
-  it should "reject a Base64 encoded value that contains invalid characters" in {
-    val secret = "09vwi985e(*ht430)*!(T)JP"
-    val id = "945029340236"
-
-    val cookie = toCookie(secret, id)
-
-    val value = cookie.value
-    val firstPipe = value.indexOf('|')
-    val invalidEncoded = "95jlkewt8@" + value.substring(firstPipe)
-    println(invalidEncoded)
-
-    val invalidEncodedCookie = new Cookie(COOKIE_NAME, invalidEncoded)
-    val cookieMap = mock[CookieMap]
-    when(cookieMap.get(COOKIE_NAME)).thenReturn(Some(invalidEncodedCookie))
-
-    val decoded = fromCookies(secret, cookieMap)
-    decoded should be(None)
-  }
 }
