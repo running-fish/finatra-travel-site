@@ -36,7 +36,7 @@ class HomeControllerSpec extends FlatSpecHelper with ShouldMatchers with WireMoc
       "[ { \"title\":\"Offer Foo\", \"details\":\"Details Foo\", \"image\":\"foo.jpg\" } ]"
     )
 
-    get("/home")
+    get("/")
     response.code should equal(200)
     println("RESPONSE:" + response.body)
   }

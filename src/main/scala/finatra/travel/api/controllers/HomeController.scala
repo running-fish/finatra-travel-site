@@ -21,7 +21,7 @@ class HomeController(secret: String, profileService: ProfileService, loyaltyServ
                      offersService: OffersService, userService: UserService)
   extends AuthController(secret, userService) {
 
-  get("/home") {
+  get("/") {
     OptionalAuth {
       request => {
 
