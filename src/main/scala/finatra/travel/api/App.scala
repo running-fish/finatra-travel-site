@@ -22,37 +22,37 @@ import finatra.travel.api.services._
 object App extends FinatraServer {
 
   // temporary hack
-  System.setProperty("com.twitter.finatra.config.port", ":9100")
+  System.setProperty("com.twitter.finatra.config.port", ":9000")
 
   private val applicationSecret = flag("applicationSecret",
     "woiegjv*j49ux^gew9)ijew,@-,mweHE9d(&dr3$", "The secret used for cookie signing")
 
   private val profileService = {
-    val profileHost = flag("profile.host", "localhost:9200", "The host:port for the Profile Service")
+    val profileHost = flag("profile.host", "localhost:9100", "The host:port for the Profile Service")
     val profileUrl = flag("profile.url", "/profile", "The base url for the Profile Service")
     new ProfileService(profileHost(), profileUrl())
   }
 
   private val loyaltyService = {
-    val loyaltyHost = flag("loyalty.host", "localhost:9200", "The host:port for the Loyalty Service")
+    val loyaltyHost = flag("loyalty.host", "localhost:9100", "The host:port for the Loyalty Service")
     val loyaltyUrl = flag("loyalty.url", "/loyalty", "The base url for the Loyalty Service")
     new LoyaltyService(loyaltyHost(), loyaltyUrl())
   }
 
   private val offersService = {
-    val offersHost = flag("offers.host", "localhost:9200", "The host:port for the Offers Service")
+    val offersHost = flag("offers.host", "localhost:9100", "The host:port for the Offers Service")
     val offersUrl = flag("offers.url", "/offers", "The base url for the Offers Service")
     new OffersService(offersHost(), offersUrl())
   }
   
   private val userService = {
-    val userHost = flag("user.host", "localhost:9200", "The host:port for the User Service")
+    val userHost = flag("user.host", "localhost:9100", "The host:port for the User Service")
     val userUrl = flag("user.url", "/user", "The base url for the User Service")
     new UserService(userHost(), userUrl())
   }
 
   private val loginService = {
-    val loginHost = flag("login.host", "localhost:9200", "The host:port for the Login Service")
+    val loginHost = flag("login.host", "localhost:9100", "The host:port for the Login Service")
     val loginUrl = flag("login.url", "/login", "The base url for the Login Service")
     new LoginService(loginHost(), loginUrl())
   }

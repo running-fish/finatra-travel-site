@@ -16,6 +16,8 @@
 package finatra.travel.api.controllers
 
 import finatra.travel.api.services._
+import com.twitter.finatra.ContentType.{Html, Json}
+import finatra.travel.api.views.HomeView
 
 class HomeController(secret: String, profileService: ProfileService, loyaltyService: LoyaltyService,
                      offersService: OffersService, userService: UserService)
@@ -35,9 +37,12 @@ class HomeController(secret: String, profileService: ProfileService, loyaltyServ
 
         userData flatMap {
           data => {
-            offersService.offers(data._1, data._2) map {
+            offersService.offers(data._1, data._2) flatMap {
               offers => {
-                render.json(offers)
+                respondTo(request) {
+                  case _:Json => render.json(offers).toFuture
+                  case _:Html => render.view(new HomeView(Some(User("100", "Fred", "fred")), offers.take(2))).toFuture
+                }
               }
             }
           }

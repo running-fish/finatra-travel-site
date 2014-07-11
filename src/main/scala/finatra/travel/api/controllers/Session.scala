@@ -36,7 +36,7 @@ trait Session {
 
   def toCookie(secret: String, id: String): Cookie = {
     val timestamp = System.currentTimeMillis
-    val encoded = Base64.getEncoder.encodeToString(id.getBytes(CharsetUtil.UTF_8))
+    val encoded = new String(Base64.getEncoder.encode(id.getBytes(CharsetUtil.UTF_8)), CharsetUtil.UTF_8)
     val signature = createSignature(secret, encoded, timestamp.toString)
     new Cookie(COOKIE_NAME, encoded + "|" + timestamp.toString + "|" + signature)
   }
