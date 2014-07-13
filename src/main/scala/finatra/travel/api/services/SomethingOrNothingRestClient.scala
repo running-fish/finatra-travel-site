@@ -15,15 +15,17 @@
  */
 package finatra.travel.api.services
 
-import com.twitter.finagle.{HttpClient, Service}
+import com.twitter.finagle.HttpClient
 import org.jboss.netty.handler.codec.http._
 import com.twitter.util.Future
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.{JavaType, DeserializationFeature, ObjectMapper}
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import scala.Some
 import org.jboss.netty.util.CharsetUtil
 import org.jboss.netty.buffer.ChannelBuffers
+import com.twitter.logging.Logger
+import com.twitter.finatra.config
 
 class SomethingOrNothingRestClient(host: String) {
 
@@ -31,6 +33,8 @@ class SomethingOrNothingRestClient(host: String) {
 
   private val mapper = new ObjectMapper() with ScalaObjectMapper
   mapper.registerModule(DefaultScalaModule)
+
+  def log = Logger(config.logNode())
 
   def get[R](url: String)(implicit manifest: Manifest[R]): Future[Option[R]] = {
     getInternal[R, Option[R]](url, None) { result => Some(result) }
@@ -60,12 +64,16 @@ class SomethingOrNothingRestClient(host: String) {
   }
 
   private def execute[R, S](request: HttpRequest, defaultValue: S)(f: R => S)(implicit manifest: Manifest[R]): Future[S] = {
+    log.info(s"SomethingOrNothingRestClient executing $request")
     service(request) map {
       response => {
+        log.info(s"SomethingOrNothingRestClient response status ${response.getStatus}")
         response.getStatus.getCode match {
           case 200 => {
             val body = response.getContent.toString(CharsetUtil.UTF_8)
-            val result = mapper.readValue[R](body)
+            log.info(s"SomethingOrNothingRestClient response content $body")
+            val reader = mapper.reader(manifest.erasure)
+            val result = reader.withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).readValue[R](body)
             f(result)
           }
           case _ => defaultValue
