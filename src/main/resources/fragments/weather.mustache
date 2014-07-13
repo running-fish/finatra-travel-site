@@ -1,0 +1,17 @@
+{{#weather}}
+    <div class="weather">
+        <h2>Weather</h2>
+        <h3>{{city}}</h3>
+        <ul>
+            {{#forecasts}}
+                <li>
+                    <span class="forecast">
+                        <span class="date">{{day}}</span>
+                        <img src="http://openweathermap.org/img/w/{{icon}}.png"
+                             alt="{{summary}}" title="{{summary}}"/>
+                    </span>
+                </li>
+            {{/forecasts}}
+        </ul>
+    </div>
+{{/weather}}

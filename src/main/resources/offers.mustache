@@ -1,0 +1,20 @@
+{{<mustache/body}}
+{{$content}}
+    {{#offers}}
+    <div id="offers">
+        <h2>Offers</h2>
+        <ul>
+            {{#offers}}
+                <li>
+                    <span class="offer">
+                        <span class="offertitle">{{title}}</span>
+                        <img class="offerimage" src="{{assets}}/{{image}}" alt="{{title}}" title="{{title}}">
+                    </span>
+                </li>
+            {{/offers}}
+        </ul>
+    </div>
+    {{/offers}}
+    {{> fragments/weather}}
+{{/content}}
+{{/mustache/body}}

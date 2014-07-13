@@ -41,7 +41,7 @@ class HomeController(secret: String, profileService: ProfileService, loyaltyServ
               offers => {
                 respondTo(request) {
                   case _:Json => render.json(offers).toFuture
-                  case _:Html => render.view(new HomeView(Some(User("100", "Fred", "fred")), offers.take(2))).toFuture
+                  case _:Html => render.view(HomeView.from(request.user, offers.take(4))).toFuture
                 }
               }
             }
