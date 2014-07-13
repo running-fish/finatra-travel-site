@@ -64,7 +64,7 @@ object App extends FinatraServer {
   }
 
   private val weatherService = {
-    val host = flag("weather.host", "api.openweathermap.org", "The host:port for the Weather Service")
+    val host = flag("weather.host", "api.openweathermap.org:80", "The host:port for the Weather Service")
     val url = flag("weather.url", "/data/2.5/forecast/daily", "The base url for the Weather Service")
     new WeatherService(host(), url())
   }
