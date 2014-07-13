@@ -44,7 +44,7 @@ object App extends FinatraServer {
     val offersUrl = flag("offers.url", "/offers", "The base url for the Offers Service")
     new OffersService(offersHost(), offersUrl())
   }
-  
+
   private val userService = {
     val userHost = flag("user.host", "localhost:9100", "The host:port for the User Service")
     val userUrl = flag("user.url", "/user", "The base url for the User Service")
@@ -57,6 +57,18 @@ object App extends FinatraServer {
     new LoginService(loginHost(), loginUrl())
   }
 
-  register(new HomeController(applicationSecret(), profileService, loyaltyService, offersService, userService))
+  private val advertService = {
+    val host = flag("advert.host", "localhost:9100", "The host:port for the Advert Service")
+    val url = flag("advert.url", "/adverts", "The base url for the Advert Service")
+    new AdvertService(host(), url())
+  }
+
+  private val weatherService = {
+    val host = flag("weather.host", "api.openweathermap.org", "The host:port for the Weather Service")
+    val url = flag("weather.url", "/data/2.5/forecast/daily", "The base url for the Weather Service")
+    new WeatherService(host(), url())
+  }
+
+  register(new HomeController(applicationSecret(), profileService, loyaltyService, offersService, advertService, weatherService, userService))
   register(new LoginController(applicationSecret(), loginService))
 }

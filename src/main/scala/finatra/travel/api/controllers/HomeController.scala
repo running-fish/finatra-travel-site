@@ -18,36 +18,51 @@ package finatra.travel.api.controllers
 import finatra.travel.api.services._
 import com.twitter.finatra.ContentType.{Html, Json}
 import finatra.travel.api.views.HomeView
+import com.twitter.logging.Logger
+import com.twitter.util.Future
 
 class HomeController(secret: String, profileService: ProfileService, loyaltyService: LoyaltyService,
-                     offersService: OffersService, userService: UserService)
+                     offersService: OffersService, advertService: AdvertService, weatherService: WeatherService,
+                     userService: UserService)
   extends AuthController(secret, userService) {
 
   get("/") {
     OptionalAuth {
       request => {
 
-        val futureProfile = profileService.profile(request.user)
-        val futureLoyalty = loyaltyService.loyalty(request.user)
-
-        val userData = for {
-          profile <- futureProfile
-          loyalty <- futureLoyalty
-        } yield (profile, loyalty)
-
-        userData flatMap {
-          data => {
-            offersService.offers(data._1, data._2) flatMap {
-              offers => {
-                respondTo(request) {
-                  case _:Json => render.json(offers).toFuture
-                  case _:Html => render.view(HomeView.from(request.user, offers.take(4))).toFuture
-                }
-              }
+        profileLoyalty(request.user) flatMap {
+          advertsOffers(4)
+        } flatMap {
+          adsAndOffers => {
+            val adverts = adsAndOffers._1
+            val offers = adsAndOffers._2
+            val view = HomeView.from(request.user, offers.take(4), adverts)
+            log.info(view.toString)
+            respondTo(request) {
+              case _:Json => render.json(view).toFuture
+              case _:Html => render.view(view).toFuture
             }
           }
         }
       }
     }
+  }
+
+  def profileLoyalty(user: Option[User]): Future[(Option[Profile], Option[Loyalty])] = {
+    val futureProfile = profileService.profile(user)
+    val futureLoyalty = loyaltyService.loyalty(user)
+    for {
+      profile <- futureProfile
+      loyalty <- futureLoyalty
+    } yield (profile, loyalty)
+  }
+
+  def advertsOffers(advertsCount: Int)(profileLoyalty: (Option[Profile], Option[Loyalty])): Future[(List[Advert], List[Offer])] = {
+    val futureAdverts = advertService.adverts(advertsCount, profileLoyalty._1)
+    val futureOffers = offersService.offers(profileLoyalty._1, profileLoyalty._2)
+    for {
+      adverts <- futureAdverts
+      offers <- futureOffers
+    } yield(adverts, offers)
   }
 }
