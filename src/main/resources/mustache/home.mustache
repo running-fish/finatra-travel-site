@@ -1,7 +1,7 @@
-{{<main}}
-    {{$content}}
+{{< mustache/main}}
+{{$content}}
 <div id="search">
-    <form id="searchform" action="@routes.HomeController.homeAction" method="post" name="search">
+    <form id="searchform" action="/search" method="post" name="search">
         <fieldset>
             <legend>Search for flights</legend>
             <label for="leaving">Leaving from</label>
@@ -23,6 +23,7 @@
         <li>
             <span class="offer">
                 <span class="offertitle">{{title}}</span>
+                <img class="offerimage" src="{{image}}" alt="{{title}}" title="{{title}}"/>
             </span>
         </li>
     {{/offers}}
@@ -31,5 +32,5 @@
     {{/offers}}
     </ul>
 </div>
-    {{/content}}
-{{/main}}
+{{/content}}
+{{/ mustache/main}}

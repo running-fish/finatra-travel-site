@@ -5,5 +5,5 @@ import finatra.travel.api.services.{Offer, User}
 
 class HomeView(val user: Option[User], val offers: List[Offer]) extends View {
 
-  def template: String = "home.mustache"
+  def template: String = "mustache/home.mustache"
 }
