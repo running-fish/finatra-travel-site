@@ -32,6 +32,7 @@ class SomethingOrNothingRestClient(host: String) {
   private val service = HttpClient.newClient(host).toService
 
   private val mapper = new ObjectMapper() with ScalaObjectMapper
+  mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
   mapper.registerModule(DefaultScalaModule)
 
   def log = Logger(config.logNode())
@@ -72,8 +73,7 @@ class SomethingOrNothingRestClient(host: String) {
           case 200 => {
             val body = response.getContent.toString(CharsetUtil.UTF_8)
             log.info(s"SomethingOrNothingRestClient response content $body")
-            val reader = mapper.reader(manifest.erasure)
-            val result = reader.withoutFeatures(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).readValue[R](body)
+            val result = mapper.readValue[R](body)
             f(result)
           }
           case _ => defaultValue

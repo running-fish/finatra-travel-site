@@ -16,22 +16,13 @@
 package finatra.travel.api.controllers
 
 import com.twitter.finatra.{Request, ResponseBuilder, Controller}
-import finatra.travel.api.views.LoginView
 import finatra.travel.api.services.{User, LoginService}
-import com.twitter.finatra.ContentType.{Html, Json}
 import com.twitter.util.Future
 
 class LoginController(secret: String, loginService: LoginService) extends Controller with Session {
 
   val invalidMessage = "Invalid username or password"
   val errorMessage = "Sorry, but there was a problem checking your credentials, please try again in a few minutes"
-
-  get("/login") {
-    request => {
-      val view = new LoginView
-      render.view(view).toFuture
-    }
-  }
 
   post("/login") {
     implicit request => {
@@ -59,23 +50,19 @@ class LoginController(secret: String, loginService: LoginService) extends Contro
     }
   }
 
-  private def userFound(user: User)(implicit request: Request): Future[ResponseBuilder] = respondTo(request) {
-    case _:Json => render.json(Map.empty).cookie(toCookie(secret, user.id)).toFuture
-    case _:Html => redirect("/").cookie(toCookie(secret, user.id)).toFuture
+  private def userFound(user: User)(implicit request: Request): Future[ResponseBuilder] = {
+    render.json(Map.empty).cookie(toCookie(secret, user.id)).toFuture
   }
 
-  private def userNotFound()(implicit request: Request): Future[ResponseBuilder] = respondTo(request) {
-    case _:Json => render.status(404).json(Map("error" -> invalidMessage)).toFuture
-    case _:Html => render.view(new LoginView(Some(invalidMessage))).status(404).toFuture
+  private def userNotFound()(implicit request: Request): Future[ResponseBuilder] = {
+    render.status(404).json(Map("error" -> invalidMessage)).toFuture
   }
 
-  private def invalidLoginSubmission()(implicit request: Request): Future[ResponseBuilder] = respondTo(request) {
-    case _:Json => render.json(Map.empty).status(400).toFuture
-    case _:Html => redirect("/").toFuture
+  private def invalidLoginSubmission()(implicit request: Request): Future[ResponseBuilder] = {
+    render.json(Map.empty).status(400).toFuture
   }
 
-  private def loginException(e: Throwable)(implicit request: Request) = respondTo(request) {
-    case _:Json => render.status(500).json(Map("error" -> errorMessage)).toFuture
-    case _:Html => render.view(new LoginView(Some(errorMessage))).toFuture
+  private def loginException(e: Throwable)(implicit request: Request) = {
+    render.status(500).json(Map("error" -> errorMessage)).toFuture
   }
 }

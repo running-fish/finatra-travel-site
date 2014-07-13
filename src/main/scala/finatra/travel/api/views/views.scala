@@ -20,7 +20,3 @@ object HomeView {
     )
   }
 }
-
-class LoginView(val error: Option[String] = None) extends View {
-  def template: String = "login.mustache"
-}

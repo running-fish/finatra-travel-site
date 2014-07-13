@@ -22,7 +22,9 @@ import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.verification.LoggedRequest
 import scala.collection.JavaConverters._
 
-case class Person(name: String, age: Int)
+case class Person(name: String, age: Int) {
+  require(name != null, "Name is required")
+}
 
 case class PostResult(status: Int, message: String)
 
@@ -66,9 +68,24 @@ class SomethingOrNothingRestClientSpec extends FlatSpec with ShouldMatchers with
     people should have size(0)
   }
 
-  it should "return the default value if the remote service returns invalid json" in {
+  it should "ignore unknown properties in json" in {
     stubGet("/people",
-      "[ { \"firstName\":\"Fred\", \"age\":34 }, { \"firstName\":\"Barney\", \"age\":33 } ]"
+      "[ { \"name\":\"Fred\", \"age\":34, \"lastName\":\"Flintstone\" }, " +
+        "{ \"name\":\"Barney\", \"age\":33, \"lastName\":\"Rubble\" } ]"
+    )
+
+    val future = client.get[List[Person]]("/people", List.empty)
+    val people = Await.result(future, Duration.fromSeconds(3))
+
+    people should have size(2)
+    people(0).name should be("Fred")
+    people(0).age should be(34)
+  }
+
+  it should "return the defalt value if the remote service returns json with missing properties that are required" in {
+    stubGet("/people",
+      "[ { \"firstName\":\"Fred\", \"age\":34, \"lastName\":\"Flintstone\" }, " +
+        "{ \"firstName\":\"Barney\", \"age\":33, \"lastName\":\"Rubble\" } ]"
     )
 
     val future = client.get[List[Person]]("/people", List.empty)
