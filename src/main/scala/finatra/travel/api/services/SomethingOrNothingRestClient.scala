@@ -18,7 +18,7 @@ package finatra.travel.api.services
 import com.twitter.finagle.HttpClient
 import org.jboss.netty.handler.codec.http._
 import com.twitter.util.Future
-import com.fasterxml.jackson.databind.{JavaType, DeserializationFeature, ObjectMapper}
+import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import scala.Some

@@ -20,13 +20,15 @@ import java.time.format.DateTimeFormatter
 import scala.math.BigDecimal.RoundingMode
 import com.twitter.util.Future
 
-case class City(name: String)
+case class City(name: String) {
+  override def toString = name
+}
 
 case class Weather(main: String, description: String, icon: String)
 
-case class Temperatures(min: BigDecimal, max: BigDecimal)
+case class Temperatures(min: java.math.BigDecimal, max: java.math.BigDecimal)
 
-case class Forecast(dt: Int, temperatures: Temperatures, weather: Seq[Weather], speed: BigDecimal, deg: BigDecimal) {
+case class Forecast(dt: Int, temp: Temperatures, weather: Seq[Weather], speed: java.math.BigDecimal, deg: java.math.BigDecimal) {
 
   private val secondsInDay = 60 * 60 * 24
 
@@ -38,9 +40,9 @@ case class Forecast(dt: Int, temperatures: Temperatures, weather: Seq[Weather], 
 
   val day = date.format(DateTimeFormatter.ofPattern("EEEE"))
 
-  val minimum = temperatures.min
+  val minimum = (BigDecimal(temp.min) - 273.15).setScale(1, RoundingMode.DOWN)
 
-  val maximum = temperatures.max
+  val maximum = (BigDecimal(temp.max) - 273.15).setScale(1, RoundingMode.DOWN)
 
   val summary = s"${weather(0).main}, ${weather(0).description}"
 
@@ -48,10 +50,12 @@ case class Forecast(dt: Int, temperatures: Temperatures, weather: Seq[Weather], 
 
   val windSpeed = speed
 
-  val windDirection = directions((deg / 22.5).setScale(0, RoundingMode.HALF_DOWN).toInt)
+  val windDirection = directions((BigDecimal(deg) / 22.5).setScale(0, RoundingMode.HALF_DOWN).toInt)
 }
 
-case class DailyForecast(city: String, list: Seq[Forecast])
+case class DailyForecast(city: City, list: Seq[Forecast]) {
+  val forecasts = list
+}
 
 class WeatherService(host: String, baseUrl: String) {
 
@@ -59,6 +63,6 @@ class WeatherService(host: String, baseUrl: String) {
 
   def forecast(cityId: Int, numberOfDays: Int): Future[Option[DailyForecast]] = {
     val queryString = s"?id=$cityId&cnt=$numberOfDays&mode=json"
-    client.get(s"baseUrl$queryString")
+    client.get[DailyForecast](s"$baseUrl$queryString")
   }
 }

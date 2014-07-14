@@ -17,7 +17,11 @@ package finatra.travel.api.services
 
 import com.twitter.util.Future
 
-case class User(id: String, name: String, username: String)
+case class Location(cityId: Int, latitude: Double, longitude: Double)
+
+case class Address(firstLine: String, town: String, postcode: String, countryCode: String, location: Location)
+
+case class User(id: String, name: String, username: String, address: Option[Address])
 
 class UserService(host: String, baseUrl: String) {
 

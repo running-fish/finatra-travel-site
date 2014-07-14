@@ -19,6 +19,7 @@ import finatra.travel.api.services._
 import com.twitter.finatra.ContentType.{Html, Json}
 import finatra.travel.api.views.HomeView
 import com.twitter.util.Future
+import GeoLocator.locate
 
 class HomeController(secret: String)
   extends AuthController(secret)
@@ -28,13 +29,12 @@ class HomeController(secret: String)
     OptionalAuth {
       request => {
 
-        profileLoyalty(request.user) flatMap {
-          advertsOffers(5)
-        } flatMap {
-          adsAndOffers => {
-            val adverts = adsAndOffers._1
-            val offers = adsAndOffers._2
-            val view = HomeView.from(request.user, offers.take(4), adverts)
+        weatherAdvertsOffers(request) flatMap {
+          result => {
+            val forecast = result._1
+            val adverts = result._2._1
+            val offers = result._2._2
+            val view = HomeView.from(request.user, offers.take(4), adverts, forecast)
             log.info(view.toString)
             respondTo(request) {
               case _:Json => render.json(view).toFuture
@@ -44,6 +44,18 @@ class HomeController(secret: String)
         }
       }
     }
+  }
+
+  def weatherAdvertsOffers(request: OptionalUserRequest): Future[(Option[DailyForecast], (List[Advert], List[Offer]))] = {
+    val location = locate(request)
+    val futureForecast: Future[Option[DailyForecast]] = weatherService.forecast(location.cityId, 5)
+    val futureAdvertsOffers: Future[(List[Advert], List[Offer])] = profileLoyalty(request.user) flatMap {
+        advertsOffers(5)
+    }
+    for {
+      forecast <- futureForecast
+      advertsOffers <- futureAdvertsOffers
+    } yield (forecast, advertsOffers)
   }
 
   def profileLoyalty(user: Option[User]): Future[(Option[Profile], Option[Loyalty])] = {

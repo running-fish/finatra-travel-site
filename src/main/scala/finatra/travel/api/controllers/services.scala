@@ -67,8 +67,10 @@ trait AdvertService {
 
 trait WeatherService {
   val weatherService = {
-    val host = App.flag("weather.host", "api.openweathermap.org:80", "The host:port for the Weather Service")
-    val url = App.flag("weather.url", "/data/2.5/forecast/daily", "The base url for the Weather Service")
+//    val host = App.flag("weather.host", "api.openweathermap.org:80", "The host:port for the Weather Service")
+//    val url = App.flag("weather.url", "/data/2.5/forecast/daily", "The base url for the Weather Service")
+    val host = App.flag("weather.host", "localhost:9100", "The host:port for the Weather Service")
+    val url = App.flag("weather.url", "/weather", "The base url for the Weather Service")
     new finatra.travel.api.services.WeatherService(host(), url())
   }
 }

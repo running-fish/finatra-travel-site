@@ -1,0 +1,133 @@
+{"cod": "200", "message": 0.0051, "city": {
+    "id": 2643741,
+    "name": "City of London",
+    "coord": {
+        "lon": -0.09184,
+        "lat": 51.512791
+    },
+    "country": "GB",
+    "population": 7556900
+}, "cnt": 5, "list": [
+    {
+        "dt": 1405339200,
+        "temp": {
+            "day": 297.36,
+            "min": 290.31,
+            "max": 297.86,
+            "night": 294.08,
+            "eve": 296.81,
+            "morn": 290.31
+        },
+        "pressure": 1017.57,
+        "humidity": 77,
+        "weather": [
+            {
+                "id": 803,
+                "main": "Clouds",
+                "description": "broken clouds",
+                "icon": "04d"
+            }
+        ],
+        "speed": 3.52,
+        "deg": 249,
+        "clouds": 64
+    },
+    {
+        "dt": 1405425600,
+        "temp": {
+            "day": 296.81,
+            "min": 290.18,
+            "max": 298.33,
+            "night": 290.18,
+            "eve": 297.79,
+            "morn": 293.18
+        },
+        "pressure": 1020.42,
+        "humidity": 77,
+        "weather": [
+            {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+            }
+        ],
+        "speed": 3.71,
+        "deg": 274,
+        "clouds": 24
+    },
+    {
+        "dt": 1405512000,
+        "temp": {
+            "day": 294.99,
+            "min": 288.62,
+            "max": 295.6,
+            "night": 290.42,
+            "eve": 295.6,
+            "morn": 288.62
+        },
+        "pressure": 1027.81,
+        "humidity": 0,
+        "weather": [
+            {
+                "id": 800,
+                "main": "Clear",
+                "description": "sky is clear",
+                "icon": "01d"
+            }
+        ],
+        "speed": 0.31,
+        "deg": 226,
+        "clouds": 0
+    },
+    {
+        "dt": 1405598400,
+        "temp": {
+            "day": 295.48,
+            "min": 290,
+            "max": 295.68,
+            "night": 292.35,
+            "eve": 295.68,
+            "morn": 290
+        },
+        "pressure": 1024.11,
+        "humidity": 0,
+        "weather": [
+            {
+                "id": 501,
+                "main": "Rain",
+                "description": "moderate rain",
+                "icon": "10d"
+            }
+        ],
+        "speed": 5.47,
+        "deg": 125,
+        "clouds": 31,
+        "rain": 3.58
+    },
+    {
+        "dt": 1405684800,
+        "temp": {
+            "day": 296.83,
+            "min": 289.53,
+            "max": 296.83,
+            "night": 289.53,
+            "eve": 295.51,
+            "morn": 292.5
+        },
+        "pressure": 1013.75,
+        "humidity": 0,
+        "weather": [
+            {
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10d"
+            }
+        ],
+        "speed": 4.23,
+        "deg": 224,
+        "clouds": 26,
+        "rain": 0.2
+    }
+]}
