@@ -2,7 +2,7 @@ package finatra.travel.api.controllers
 
 import com.twitter.finatra.test.FlatSpecHelper
 import org.scalatest.matchers.ShouldMatchers
-import finatra.travel.api.services.{LoginService, WireMockSupport}
+import finatra.travel.api.services.WireMockSupport
 import com.twitter.finatra.FinatraServer
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.client.WireMock
@@ -10,8 +10,7 @@ import com.jayway.jsonpath.JsonPath
 
 class LoginControllerSpec extends FlatSpecHelper with ShouldMatchers with WireMockSupport {
 
-  val loginService = new LoginService("localhost:9101", "/login")
-  val loginController = new LoginController("sdhfdjfosdjsdf", loginService) with TestSession
+  val loginController = new LoginController("sdhfdjfosdjsdf") with TestSession with TestLoginService
 
   override val server = new FinatraServer
   server.register(loginController)

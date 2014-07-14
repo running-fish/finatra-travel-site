@@ -19,28 +19,36 @@ import org.scalatest.matchers.ShouldMatchers
 import finatra.travel.api.services._
 import com.twitter.finatra.test.FlatSpecHelper
 import com.twitter.finatra.FinatraServer
+import org.jsoup.Jsoup.parse
 
 class HomeControllerSpec extends FlatSpecHelper with ShouldMatchers with WireMockSupport {
 
-  val host = "localhost:9101"
-  val profileService = new ProfileService(host, "/profile")
-  val loyaltyService = new LoyaltyService(host, "/loyalty")
-  val offersService = new OffersService(host, "/offers")
-  val userService = new UserService(host, "/user")
-  val advertService = new AdvertService(host, "adverts")
-  val weatherService = new WeatherService(host, "adverts")
+  val homeController = new HomeController("oweigowghoweihgowhgowehg") with
+    TestProfileService with TestLoyaltyService with TestOffersService with
+    TestAdvertService with TestWeatherService with TestUserService
 
   override val server = new FinatraServer
-  server.register(new HomeController("oweigowghoweihgowhgowehg", profileService, loyaltyService, offersService,
-    advertService, weatherService, userService))
+  server.register(homeController)
 
-  "Home Controller" should "return a list of offers" in {
+  "A get request to /" should "return the home page with a login link if no-one is logged in" in {
     stubGet("/offers",
       "[ { \"title\":\"Offer Foo\", \"details\":\"Details Foo\", \"image\":\"foo.jpg\" } ]"
     )
+    stubGet("/adverts?count=5",
+      "[{ \"title\":\"Advert 1\", \"image\":\"advert1.jpg\" }, " +
+        "{ \"title\":\"Advert 1\", \"image\":\"advert1.jpg\" }, " +
+        "{ \"title\":\"Advert 1\", \"image\":\"advert1.jpg\" }, " +
+        "{ \"title\":\"Advert 1\", \"image\":\"advert1.jpg\" }, " +
+        "{ \"title\":\"Advert 1\", \"image\":\"advert1.jpg\" }]"
+    )
 
-    get("/", Map.empty, Map("Accept" -> "application/json"))
+    get("/", Map.empty, Map("Accept" -> "text/html"))
     response.code should equal(200)
-    println("RESPONSE:" + response.body)
+
+    val doc = parse(response.body)
+    doc.select("span.offer") should have size 1
+    doc.select("span.advert") should have size 4
+    doc.select("span#loginlink") should have size 1
+    doc.select("span#logoutlink") should have size 0
   }
 }

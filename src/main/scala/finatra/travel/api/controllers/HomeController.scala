@@ -18,13 +18,11 @@ package finatra.travel.api.controllers
 import finatra.travel.api.services._
 import com.twitter.finatra.ContentType.{Html, Json}
 import finatra.travel.api.views.HomeView
-import com.twitter.logging.Logger
 import com.twitter.util.Future
 
-class HomeController(secret: String, profileService: ProfileService, loyaltyService: LoyaltyService,
-                     offersService: OffersService, advertService: AdvertService, weatherService: WeatherService,
-                     userService: UserService)
-  extends AuthController(secret, userService) {
+class HomeController(secret: String)
+  extends AuthController(secret)
+  with ProfileService with LoyaltyService with OffersService with AdvertService with WeatherService {
 
   get("/") {
     OptionalAuth {

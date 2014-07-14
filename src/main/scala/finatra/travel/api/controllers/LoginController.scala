@@ -16,13 +16,27 @@
 package finatra.travel.api.controllers
 
 import com.twitter.finatra.{Request, ResponseBuilder, Controller}
-import finatra.travel.api.services.{User, LoginService}
+import finatra.travel.api.services.{LoginData, User}
 import com.twitter.util.Future
+import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
+import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
+import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
-class LoginController(secret: String, loginService: LoginService) extends Controller with Session {
+class LoginController(secret: String) extends Controller with Session with LoginService {
 
   val invalidMessage = "Invalid username or password"
   val errorMessage = "Sorry, but there was a problem checking your credentials, please try again in a few minutes"
+
+  private val mapper = new ObjectMapper() with ScalaObjectMapper
+  mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+  mapper.registerModule(DefaultScalaModule)
+
+  post("/loginJson") {
+    implicit request => {
+      val loginData = mapper.readValue[LoginData](request.getContentString())
+      login(loginData.username, loginData.password)
+    }
+  }
 
   post("/login") {
     implicit request => {

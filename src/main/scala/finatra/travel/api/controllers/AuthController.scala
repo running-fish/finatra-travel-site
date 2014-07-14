@@ -16,13 +16,13 @@
 package finatra.travel.api.controllers
 
 import com.twitter.finagle.http.{Request => FinagleRequest}
-import finatra.travel.api.services.{User, UserService}
+import finatra.travel.api.services.User
 import com.twitter.finatra.{Request, ResponseBuilder, Controller}
 import com.twitter.util.Future
 
 class OptionalUserRequest(request: FinagleRequest, val user: Option[User]) extends Request(request)
 
-class AuthController(secret: String, userService: UserService) extends Controller with Session {
+class AuthController(secret: String) extends Controller with Session with UserService {
 
   object OptionalAuth {
     def apply(action: OptionalUserRequest => Future[ResponseBuilder]): Request => Future[ResponseBuilder] = {
