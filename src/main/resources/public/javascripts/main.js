@@ -5,7 +5,7 @@
             $("#username").val("");
             $("#password").val("");
             $(".formerror").html("");
-            $("#login").show();
+            $(".login").show();
             $("#username").focus();
             return false;
         });
@@ -57,7 +57,7 @@
         });
 
         $("#logincancel").click(function(event) {
-            $("#login").hide();
+            $(".login").hide();
             return false;
         });
     });

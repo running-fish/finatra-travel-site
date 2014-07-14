@@ -1,38 +1,53 @@
 html,body,div,span,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,em,img,strong,sub,sup,b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-family:sans-serif;font-size:100%}
 li{list-style:none}
 body{background:#f4ba70}@media only screen and (min-width:720px){body{background:#f4ba70 url('/assets/images/footprints.jpg') repeat}}@media only screen and (max-width:319px){body{font-size:0.7rem}}@media only screen and (min-width:320px) and (max-width:359px){body{font-size:0.9rem}}
-#wrapper{width:100%;max-width:800px;margin:0 auto}@media only screen and (min-width:720px) and (max-width:859px){#wrapper{width:90%}}@media only screen and (min-width:860px){#wrapper{width:80%}}
-#banner{width:100%;background-color:#85c1f5;padding-bottom:0.2rem}@media only screen and (min-width:320px) and (max-width:359px){#banner{padding-bottom:0.3rem}}@media only screen and (min-width:360px){#banner{padding-bottom:0.5rem}}@media only screen and (min-width:720px){#banner{margin-top:2rem}}
-#logo{font-family:'Chewy',cursive;font-size:2.2rem;color:#e96d63;margin-left:0.3rem}@media only screen and (max-width:319px){#logo{font-size:1.7rem}}@media only screen and (min-width:320px) and (max-width:359px){#logo{font-size:2.2rem}}@media only screen and (min-width:360px) and (max-width:479px){#logo{font-size:2.5rem}}
+.wrapper{width:100%;max-width:800px;margin:0 auto}@media only screen and (min-width:720px) and (max-width:859px){.wrapper{width:90%}}@media only screen and (min-width:860px){.wrapper{width:80%}}
+.banner{width:100%;background-color:#85c1f5;padding-bottom:0.2rem}@media only screen and (min-width:320px) and (max-width:359px){.banner{padding-bottom:0.3rem}}@media only screen and (min-width:360px){.banner{padding-bottom:0.5rem}}@media only screen and (min-width:720px){.banner{margin-top:2rem}}
+.logo{font-family:'Chewy',cursive;font-size:2.2rem;color:#e96d63;margin-left:0.3rem}@media only screen and (max-width:319px){.logo{font-size:1.7rem}}@media only screen and (min-width:320px) and (max-width:359px){.logo{font-size:2.2rem}}@media only screen and (min-width:360px) and (max-width:479px){.logo{font-size:2.5rem}}
 .loginlogout{float:right;margin-right:1rem;color:#f4ba70;margin-top:0.7rem}@media only screen and (min-width:320px) and (max-width:359px){.loginlogout{margin-top:1rem}}@media only screen and (min-width:360px) and (max-width:479px){.loginlogout{margin-top:1.3rem}}.loginlogout a{text-decoration:none;color:#f4ba70;cursor:pointer}
 #loginlink{float:right;margin-right:1rem;color:#f4ba70;margin-top:0.7rem}@media only screen and (min-width:320px) and (max-width:359px){#loginlink{margin-top:1rem}}@media only screen and (min-width:360px) and (max-width:479px){#loginlink{margin-top:1.3rem}}#loginlink a{text-decoration:none;color:#f4ba70;cursor:pointer}
 #logoutlink{float:right;margin-right:1rem;color:#f4ba70;margin-top:0.7rem}@media only screen and (min-width:320px) and (max-width:359px){#logoutlink{margin-top:1rem}}@media only screen and (min-width:360px) and (max-width:479px){#logoutlink{margin-top:1.3rem}}#logoutlink a{text-decoration:none;color:#f4ba70;cursor:pointer}
 .nav{width:100%;background-color:#4a789c;padding-top:0.2rem;padding-bottom:0.2rem;color:#f0f0f0}.nav a{text-decoration:none;color:#f0f0f0;padding-right:0.4rem;padding-left:0.4rem}
-#login{position:fixed;top:0;left:0;width:100%;height:100%;display:none;background-color:rgba(120,120,120,0.7)}#login #formwrapper{width:80%;max-width:350px;margin:10% auto;background-color:#4a789c}@media only screen and (min-width:460px) and (max-width:719px){#login #formwrapper{width:60%}}@media only screen and (min-width:720px){#login #formwrapper{width:40%}}#login #formwrapper form{color:#d0d0d0}#login #formwrapper form fieldset{width:90%;margin:0 auto;padding-top:0.2rem;padding-bottom:0.5rem;clear:left}#login #formwrapper form fieldset legend{padding-top:0.2rem;font-weight:bold;display:block;float:left;width:60%}
-#login #formwrapper form fieldset div.cancellogin{display:block;float:right;margin-top:0.2rem;clear:right;cursor:pointer}
-#login #formwrapper form fieldset .formerror{width:100%;min-height:0.2rem;color:#e96d63;padding-top:0.2rem;padding-bottom:0.2rem;font-weight:bold;clear:both}
-#login #formwrapper form fieldset label{display:block;clear:left}
-#login #formwrapper form fieldset input[type="text"],#login #formwrapper form fieldset input[type="password"]{display:block;margin-top:0.5rem;margin-bottom:0.5rem}@media only screen and (min-width:320px){#login #formwrapper form fieldset input[type="text"],#login #formwrapper form fieldset input[type="password"]{width:70%}}
-#search{padding:2%;margin-top:0.5rem;background-color:#f0f0f0}#search form legend{font-weight:bold}
-#search form fieldset{padding-top:0.2rem}@media only screen and (min-width:320px) and (max-width:359px){#search form fieldset{padding-top:0.3rem}}
-#search form label{display:block;color:#808080;font-size:0.6rem}@media only screen and (min-width:320px) and (max-width:359px){#search form label{font-size:0.8rem;padding-top:0.15rem;padding-bottom:0.15rem}}
-#search form input[type="text"]{display:block;width:10rem}@media only screen and (min-width:320px){#search form input[type="text"]{width:15rem}}
-#search form input[type="date"]{display:block;width:8rem}
-#search form input[type="submit"]{margin-top:0.5rem;display:block}
-#offers{padding:2%;margin-top:0.5rem;background-color:#f0f0f0}#offers ul{width:100%;font-size:0;display:block}#offers ul :nth-child(3){display:none}@media only screen and (min-width:460px){#offers ul :nth-child(3){display:inline-block}}
-#offers ul :nth-child(4){display:none}@media only screen and (min-width:620px){#offers ul :nth-child(4){display:inline-block}}
-#offers ul li{display:inline-block;width:100%;margin-top:0.3rem;margin-left:0;margin-right:0;margin-bottom:0}@media only screen and (min-width:320px) and (max-width:459px){#offers ul li{width:50%}}@media only screen and (min-width:460px) and (max-width:619px){#offers ul li{width:33.333333333333336%}}@media only screen and (min-width:620px){#offers ul li{width:25%}}
-#offers .offer{display:block}#offers .offer .offertitle{display:block;font-size:0.7rem;margin-left:3%}@media only screen and (min-width:320px){#offers .offer .offertitle{font-size:0.8rem}}@media only screen and (min-width:460px){#offers .offer .offertitle{font-size:0.7rem}}
-#offers .offer .offerimage{display:block;max-width:95%;margin:0.3rem auto 0}
-#adverts{padding:2%;margin-top:0.5rem;background-color:#d0d0d0}#adverts ul{width:100%;font-size:0;display:block}#adverts ul :nth-child(3){display:none}@media only screen and (min-width:460px){#adverts ul :nth-child(3){display:inline-block}}
-#adverts ul :nth-child(4){display:none}@media only screen and (min-width:620px){#adverts ul :nth-child(4){display:inline-block}}
-#adverts ul li{display:inline-block;width:100%;margin-top:0.3rem;margin-left:0;margin-right:0;margin-bottom:0}@media only screen and (min-width:320px) and (max-width:459px){#adverts ul li{width:50%}}@media only screen and (min-width:460px) and (max-width:619px){#adverts ul li{width:33.333333333333336%}}@media only screen and (min-width:620px){#adverts ul li{width:25%}}
-#adverts .advert{display:block}#adverts .advert .adverttitle{display:block;margin-left:3%}
-#adverts .advert .advertimage{display:block;max-width:95%;margin:0.3rem auto 0;font-size:0.7rem;color:#707070}
-#adverts .advice{font-size:0.7rem;color:#707070;margin-left:3%}
-#footer{padding:2%;margin-top:0.5rem;background-color:#a0a0a0;font-size:0.7rem;color:#D0D0D0}@media only screen and (min-width:720px){#footer{margin-bottom:2rem}}#footer a{text-decoration:none;color:#D0D0D0}
+.headblock{background-color:#f0f0f0}
+.more{font-size:0.7rem;color:#808080;text-decoration:none;cursor:pointer}
+.login{position:fixed;top:0;left:0;width:100%;height:100%;display:none;background-color:rgba(120,120,120,0.7)}.login .wrapper{width:80%;max-width:350px;margin:10% auto;background-color:#4a789c}@media only screen and (min-width:460px) and (max-width:719px){.login .wrapper{width:60%}}@media only screen and (min-width:720px){.login .wrapper{width:40%}}.login .wrapper form{color:#d0d0d0}.login .wrapper form fieldset{width:90%;margin:0 auto;padding-top:0.2rem;padding-bottom:0.5rem;clear:left}.login .wrapper form fieldset legend{padding-top:0.2rem;font-weight:bold;display:block;float:left;width:60%}
+.login .wrapper form fieldset div.cancellogin{display:block;float:right;margin-top:0.2rem;clear:right;cursor:pointer}
+.login .wrapper form fieldset .formerror{width:100%;min-height:0.2rem;color:#e96d63;padding-top:0.2rem;padding-bottom:0.2rem;font-weight:bold;clear:both}
+.login .wrapper form fieldset label{display:block;clear:left}
+.login .wrapper form fieldset input[type="text"],.login .wrapper form fieldset input[type="password"]{display:block;margin-top:0.5rem;margin-bottom:0.5rem}@media only screen and (min-width:320px){.login .wrapper form fieldset input[type="text"],.login .wrapper form fieldset input[type="password"]{width:70%}}
+.search{display:block;padding:2%;margin-top:0.5rem;background-color:#f0f0f0}@media only screen and (min-width:620px){.search{display:inline;width:46%;height:100%;float:left}}.search form legend{font-weight:bold}
+.search form fieldset{padding-top:0.2rem}@media only screen and (min-width:320px) and (max-width:359px){.search form fieldset{padding-top:0.3rem}}
+.search form label{display:block;color:#808080;font-size:0.6rem}@media only screen and (min-width:320px) and (max-width:359px){.search form label{font-size:0.8rem;padding-top:0.15rem;padding-bottom:0.15rem}}
+.search form input[type="text"]{display:block;width:10rem}@media only screen and (min-width:320px){.search form input[type="text"]{width:15rem}}
+.search form input[type="date"]{display:block;width:8rem}
+.search form input[type="submit"]{margin-top:0.5rem;display:block}
+.partial-offers{clear:left;padding:2%;margin-top:0.5rem;background-color:#f0f0f0}.partial-offers ul{width:100%;font-size:0;display:block}.partial-offers ul li:nth-child(3){display:none}@media only screen and (min-width:460px){.partial-offers ul li:nth-child(3){display:inline-block}}
+.partial-offers ul li:nth-child(4){display:none}@media only screen and (min-width:620px){.partial-offers ul li:nth-child(4){display:inline-block}}
+.partial-offers ul li{display:inline-block;font-size:1rem;width:100%;margin:0.3rem 0}@media only screen and (min-width:320px) and (max-width:459px){.partial-offers ul li{width:50%}}@media only screen and (min-width:460px) and (max-width:619px){.partial-offers ul li{width:33.333333333333336%}}@media only screen and (min-width:620px){.partial-offers ul li{width:25%}}
+.partial-offers .offer{display:block}.partial-offers .offer .title{display:block;font-size:0.7rem;margin-left:3%}@media only screen and (min-width:320px){.partial-offers .offer .title{font-size:0.8rem}}@media only screen and (min-width:460px){.partial-offers .offer .title{font-size:0.7rem}}
+.partial-offers .offer img{display:block;max-width:95%;max-height:60%;margin:0.3rem auto 0}
+.mainadvert{display:none}@media only screen and (min-width:620px){.mainadvert{display:inline;float:right;padding:2%;width:46%;margin-top:0.5rem}}.mainadvert .advice{font-size:0.9rem;color:#707070;margin-left:3%}
+.mainadvert img{display:block;max-width:95%;max-height:10rem;margin:0.3rem 0 0 0.5rem}
+.spacer{display:none}@media only screen and (min-width:620px){.spacer{display:block;width:100%;height:0;clear:both}}
+.adverts{padding:2%;margin-top:0.5rem;background-color:#d0d0d0}.adverts ul{width:100%;font-size:0;display:block}.adverts ul li:nth-child(3){display:none}@media only screen and (min-width:460px){.adverts ul li:nth-child(3){display:inline-block}}
+.adverts ul li:nth-child(4){display:none}@media only screen and (min-width:620px){.adverts ul li:nth-child(4){display:inline-block}}
+.adverts ul li{display:inline-block;font-size:1rem;width:100%;margin:0.3rem 0}@media only screen and (min-width:320px) and (max-width:459px){.adverts ul li{width:50%}}@media only screen and (min-width:460px) and (max-width:619px){.adverts ul li{width:33.333333333333336%}}@media only screen and (min-width:620px){.adverts ul li{width:25%}}
+.adverts .advert{display:block}.adverts .advert img{display:block;max-width:95%;margin:0.3rem auto 0;font-size:0.7rem;color:#707070}
+.adverts .advice{font-size:0.7rem;color:#707070;margin-left:3%}
+.footer{padding:2%;margin-top:0.5rem;background-color:#a0a0a0;font-size:0.7rem;color:#D0D0D0}@media only screen and (min-width:720px){.footer{margin-bottom:2rem}}.footer a{text-decoration:none;color:#D0D0D0}
 .weather{padding:2%;margin-top:0.5rem;background-color:#4a789c;color:#f0f0f0}.weather h3{font-size:0.7rem}
-.weather ul{width:100%;font-size:0;display:block}.weather ul :nth-child(4){display:none}@media only screen and (min-width:460px){.weather ul :nth-child(4){display:inline-block}}
-.weather ul :nth-child(5){display:none}@media only screen and (min-width:620px){.weather ul :nth-child(5){display:inline-block}}
-.weather ul li{display:inline-block;width:100%;margin-top:0.3rem;margin-left:0;margin-right:0;margin-bottom:0}@media only screen and (min-width:320px) and (max-width:459px){.weather ul li{width:33.333333333333336%}}@media only screen and (min-width:460px) and (max-width:619px){.weather ul li{width:25%}}@media only screen and (min-width:620px){.weather ul li{width:20%}}
+.weather ul{width:100%;font-size:0;display:block}.weather ul li:nth-child(4){display:none}@media only screen and (min-width:460px){.weather ul li:nth-child(4){display:inline-block}}
+.weather ul li:nth-child(5){display:none}@media only screen and (min-width:620px){.weather ul li:nth-child(5){display:inline-block}}
+.weather ul li{display:inline-block;font-size:1rem;width:33.333333333333336%;margin:0.3rem 0}@media only screen and (min-width:460px) and (max-width:619px){.weather ul li{width:25%}}@media only screen and (min-width:620px){.weather ul li{width:20%}}
 .weather .forecast{display:block}.weather .forecast .date{font-size:0.6rem;display:block}
+.weather .forecast .details img{display:block}@media only screen and (min-width:320px){.weather .forecast .details img{width:50%;float:left}}
+.weather .forecast .details .temperatures{display:none}@media only screen and (min-width:320px){.weather .forecast .details .temperatures{display:block;float:right;font-size:0.6rem;width:40%;margin:5%}}.weather .forecast .details .temperatures .minimum{display:block}
+.weather .forecast .details .temperatures .maximum{display:block}
+.offers{clear:left;padding:2%;margin-top:0.5rem;background-color:#f0f0f0}.offers ul{width:100%;font-size:0;display:block}.offers ul li:nth-child(5){display:none}@media only screen and (min-width:320px){.offers ul li:nth-child(5){display:inline-block}}
+.offers ul li:nth-child(6){display:none}@media only screen and (min-width:320px){.offers ul li:nth-child(6){display:inline-block}}
+.offers ul li:nth-child(7){display:none}@media only screen and (min-width:620px){.offers ul li:nth-child(7){display:inline-block}}
+.offers ul li:nth-child(8){display:none}@media only screen and (min-width:620px){.offers ul li:nth-child(8){display:inline-block}}
+.offers ul li{display:inline-block;font-size:1rem;width:100%;margin:0.3rem 0}@media only screen and (min-width:320px) and (max-width:459px){.offers ul li{width:50%}}@media only screen and (min-width:460px) and (max-width:619px){.offers ul li{width:33.333333333333336%}}@media only screen and (min-width:620px){.offers ul li{width:25%}}
+.offers .offer{display:block}.offers .offer span{font-size:0.7rem;display:block;margin-left:3%}
+.offers .offer .title{display:block;margin-left:3%}@media only screen and (min-width:320px){.offers .offer .title{font-size:0.8rem}}@media only screen and (min-width:460px){.offers .offer .title{font-size:0.7rem}}
+.offers .offer img{display:block;max-width:95%;max-height:60%;margin:0.3rem auto 0.3rem}

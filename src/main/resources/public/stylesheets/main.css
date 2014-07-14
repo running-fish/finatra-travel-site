@@ -65,59 +65,59 @@ body {
     font-size: 0.9rem;
   }
 }
-#wrapper {
+.wrapper {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
 }
 @media only screen and (min-width: 720px) and (max-width: 859px) {
-  #wrapper {
+  .wrapper {
     width: 90%;
   }
 }
 @media only screen and (min-width: 860px) {
-  #wrapper {
+  .wrapper {
     width: 80%;
   }
 }
-#banner {
+.banner {
   width: 100%;
   background-color: #85c1f5;
   padding-bottom: 0.2rem;
 }
 @media only screen and (min-width: 320px) and (max-width: 359px) {
-  #banner {
+  .banner {
     padding-bottom: 0.3rem;
   }
 }
 @media only screen and (min-width: 360px) {
-  #banner {
+  .banner {
     padding-bottom: 0.5rem;
   }
 }
 @media only screen and (min-width: 720px) {
-  #banner {
+  .banner {
     margin-top: 2rem;
   }
 }
-#logo {
+.logo {
   font-family: 'Chewy', cursive;
   font-size: 2.2rem;
   color: #e96d63;
   margin-left: 0.3rem;
 }
 @media only screen and (max-width: 319px) {
-  #logo {
+  .logo {
     font-size: 1.7rem;
   }
 }
 @media only screen and (min-width: 320px) and (max-width: 359px) {
-  #logo {
+  .logo {
     font-size: 2.2rem;
   }
 }
 @media only screen and (min-width: 360px) and (max-width: 479px) {
-  #logo {
+  .logo {
     font-size: 2.5rem;
   }
 }
@@ -197,7 +197,16 @@ body {
   padding-right: 0.4rem;
   padding-left: 0.4rem;
 }
-#login {
+.headblock {
+  background-color: #f0f0f0;
+}
+.more {
+  font-size: 0.7rem;
+  color: #808080;
+  text-decoration: none;
+  cursor: pointer;
+}
+.login {
   position: fixed;
   top: 0;
   left: 0;
@@ -206,47 +215,47 @@ body {
   display: none;
   background-color: rgba(120, 120, 120, 0.7);
 }
-#login #formwrapper {
+.login .wrapper {
   width: 80%;
   max-width: 350px;
   margin: 10% auto;
   background-color: #4a789c;
 }
 @media only screen and (min-width: 460px) and (max-width: 719px) {
-  #login #formwrapper {
+  .login .wrapper {
     width: 60%;
   }
 }
 @media only screen and (min-width: 720px) {
-  #login #formwrapper {
+  .login .wrapper {
     width: 40%;
   }
 }
-#login #formwrapper form {
+.login .wrapper form {
   color: #d0d0d0;
 }
-#login #formwrapper form fieldset {
+.login .wrapper form fieldset {
   width: 90%;
   margin: 0 auto;
   padding-top: 0.2rem;
   padding-bottom: 0.5rem;
   clear: left;
 }
-#login #formwrapper form fieldset legend {
+.login .wrapper form fieldset legend {
   padding-top: 0.2rem;
   font-weight: bold;
   display: block;
   float: left;
   width: 60%;
 }
-#login #formwrapper form fieldset div.cancellogin {
+.login .wrapper form fieldset div.cancellogin {
   display: block;
   float: right;
   margin-top: 0.2rem;
   clear: right;
   cursor: pointer;
 }
-#login #formwrapper form fieldset .formerror {
+.login .wrapper form fieldset .formerror {
   width: 100%;
   min-height: 0.2rem;
   color: #e96d63;
@@ -255,208 +264,245 @@ body {
   font-weight: bold;
   clear: both;
 }
-#login #formwrapper form fieldset label {
+.login .wrapper form fieldset label {
   display: block;
   clear: left;
 }
-#login #formwrapper form fieldset input[type="text"],
-#login #formwrapper form fieldset input[type="password"] {
+.login .wrapper form fieldset input[type="text"],
+.login .wrapper form fieldset input[type="password"] {
   display: block;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
 @media only screen and (min-width: 320px) {
-  #login #formwrapper form fieldset input[type="text"],
-  #login #formwrapper form fieldset input[type="password"] {
+  .login .wrapper form fieldset input[type="text"],
+  .login .wrapper form fieldset input[type="password"] {
     width: 70%;
   }
 }
-#search {
+.search {
+  display: block;
   padding: 2%;
   margin-top: 0.5rem;
   background-color: #f0f0f0;
 }
-#search form legend {
+@media only screen and (min-width: 620px) {
+  .search {
+    display: inline;
+    width: 46%;
+    height: 100%;
+    float: left;
+  }
+}
+.search form legend {
   font-weight: bold;
 }
-#search form fieldset {
+.search form fieldset {
   padding-top: 0.2rem;
 }
 @media only screen and (min-width: 320px) and (max-width: 359px) {
-  #search form fieldset {
+  .search form fieldset {
     padding-top: 0.3rem;
   }
 }
-#search form label {
+.search form label {
   display: block;
   color: #808080;
   font-size: 0.6rem;
 }
 @media only screen and (min-width: 320px) and (max-width: 359px) {
-  #search form label {
+  .search form label {
     font-size: 0.8rem;
     padding-top: 0.15rem;
     padding-bottom: 0.15rem;
   }
 }
-#search form input[type="text"] {
+.search form input[type="text"] {
   display: block;
   width: 10rem;
 }
 @media only screen and (min-width: 320px) {
-  #search form input[type="text"] {
+  .search form input[type="text"] {
     width: 15rem;
   }
 }
-#search form input[type="date"] {
+.search form input[type="date"] {
   display: block;
   width: 8rem;
 }
-#search form input[type="submit"] {
+.search form input[type="submit"] {
   margin-top: 0.5rem;
   display: block;
 }
-#offers {
+.partial-offers {
+  clear: left;
   padding: 2%;
   margin-top: 0.5rem;
   background-color: #f0f0f0;
 }
-#offers ul {
+.partial-offers ul {
   width: 100%;
   font-size: 0;
   display: block;
 }
-#offers ul :nth-child(3) {
+.partial-offers ul li:nth-child(3) {
   display: none;
 }
 @media only screen and (min-width: 460px) {
-  #offers ul :nth-child(3) {
+  .partial-offers ul li:nth-child(3) {
     display: inline-block;
   }
 }
-#offers ul :nth-child(4) {
+.partial-offers ul li:nth-child(4) {
   display: none;
 }
 @media only screen and (min-width: 620px) {
-  #offers ul :nth-child(4) {
+  .partial-offers ul li:nth-child(4) {
     display: inline-block;
   }
 }
-#offers ul li {
+.partial-offers ul li {
   display: inline-block;
+  font-size: 1rem;
   width: 100%;
-  margin-top: 0.3rem;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 0;
+  margin: 0.3rem 0;
 }
 @media only screen and (min-width: 320px) and (max-width: 459px) {
-  #offers ul li {
+  .partial-offers ul li {
     width: 50%;
   }
 }
 @media only screen and (min-width: 460px) and (max-width: 619px) {
-  #offers ul li {
+  .partial-offers ul li {
     width: 33.333333333333336%;
   }
 }
 @media only screen and (min-width: 620px) {
-  #offers ul li {
+  .partial-offers ul li {
     width: 25%;
   }
 }
-#offers .offer {
+.partial-offers .offer {
   display: block;
 }
-#offers .offer .offertitle {
+.partial-offers .offer .title {
   display: block;
   font-size: 0.7rem;
   margin-left: 3%;
 }
 @media only screen and (min-width: 320px) {
-  #offers .offer .offertitle {
+  .partial-offers .offer .title {
     font-size: 0.8rem;
   }
 }
 @media only screen and (min-width: 460px) {
-  #offers .offer .offertitle {
+  .partial-offers .offer .title {
     font-size: 0.7rem;
   }
 }
-#offers .offer .offerimage {
+.partial-offers .offer img {
   display: block;
   max-width: 95%;
+  max-height: 60%;
   margin: 0.3rem auto 0;
 }
-#adverts {
+.mainadvert {
+  display: none;
+}
+@media only screen and (min-width: 620px) {
+  .mainadvert {
+    display: inline;
+    float: right;
+    padding: 2%;
+    width: 46%;
+    margin-top: 0.5rem;
+  }
+}
+.mainadvert .advice {
+  font-size: 0.9rem;
+  color: #707070;
+  margin-left: 3%;
+}
+.mainadvert img {
+  display: block;
+  max-width: 95%;
+  max-height: 10rem;
+  margin: 0.3rem 0 0 0.5rem;
+}
+.spacer {
+  display: none;
+}
+@media only screen and (min-width: 620px) {
+  .spacer {
+    display: block;
+    width: 100%;
+    height: 0;
+    clear: both;
+  }
+}
+.adverts {
   padding: 2%;
   margin-top: 0.5rem;
   background-color: #d0d0d0;
 }
-#adverts ul {
+.adverts ul {
   width: 100%;
   font-size: 0;
   display: block;
 }
-#adverts ul :nth-child(3) {
+.adverts ul li:nth-child(3) {
   display: none;
 }
 @media only screen and (min-width: 460px) {
-  #adverts ul :nth-child(3) {
+  .adverts ul li:nth-child(3) {
     display: inline-block;
   }
 }
-#adverts ul :nth-child(4) {
+.adverts ul li:nth-child(4) {
   display: none;
 }
 @media only screen and (min-width: 620px) {
-  #adverts ul :nth-child(4) {
+  .adverts ul li:nth-child(4) {
     display: inline-block;
   }
 }
-#adverts ul li {
+.adverts ul li {
   display: inline-block;
+  font-size: 1rem;
   width: 100%;
-  margin-top: 0.3rem;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 0;
+  margin: 0.3rem 0;
 }
 @media only screen and (min-width: 320px) and (max-width: 459px) {
-  #adverts ul li {
+  .adverts ul li {
     width: 50%;
   }
 }
 @media only screen and (min-width: 460px) and (max-width: 619px) {
-  #adverts ul li {
+  .adverts ul li {
     width: 33.333333333333336%;
   }
 }
 @media only screen and (min-width: 620px) {
-  #adverts ul li {
+  .adverts ul li {
     width: 25%;
   }
 }
-#adverts .advert {
+.adverts .advert {
   display: block;
 }
-#adverts .advert .adverttitle {
-  display: block;
-  margin-left: 3%;
-}
-#adverts .advert .advertimage {
+.adverts .advert img {
   display: block;
   max-width: 95%;
   margin: 0.3rem auto 0;
   font-size: 0.7rem;
   color: #707070;
 }
-#adverts .advice {
+.adverts .advice {
   font-size: 0.7rem;
   color: #707070;
   margin-left: 3%;
 }
-#footer {
+.footer {
   padding: 2%;
   margin-top: 0.5rem;
   background-color: #a0a0a0;
@@ -464,11 +510,11 @@ body {
   color: #D0D0D0;
 }
 @media only screen and (min-width: 720px) {
-  #footer {
+  .footer {
     margin-bottom: 2rem;
   }
 }
-#footer a {
+.footer a {
   text-decoration: none;
   color: #D0D0D0;
 }
@@ -486,34 +532,27 @@ body {
   font-size: 0;
   display: block;
 }
-.weather ul :nth-child(4) {
+.weather ul li:nth-child(4) {
   display: none;
 }
 @media only screen and (min-width: 460px) {
-  .weather ul :nth-child(4) {
+  .weather ul li:nth-child(4) {
     display: inline-block;
   }
 }
-.weather ul :nth-child(5) {
+.weather ul li:nth-child(5) {
   display: none;
 }
 @media only screen and (min-width: 620px) {
-  .weather ul :nth-child(5) {
+  .weather ul li:nth-child(5) {
     display: inline-block;
   }
 }
 .weather ul li {
   display: inline-block;
-  width: 100%;
-  margin-top: 0.3rem;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 0;
-}
-@media only screen and (min-width: 320px) and (max-width: 459px) {
-  .weather ul li {
-    width: 33.333333333333336%;
-  }
+  font-size: 1rem;
+  width: 33.333333333333336%;
+  margin: 0.3rem 0;
 }
 @media only screen and (min-width: 460px) and (max-width: 619px) {
   .weather ul li {
@@ -531,4 +570,123 @@ body {
 .weather .forecast .date {
   font-size: 0.6rem;
   display: block;
+}
+.weather .forecast .details img {
+  display: block;
+}
+@media only screen and (min-width: 320px) {
+  .weather .forecast .details img {
+    width: 50%;
+    float: left;
+  }
+}
+.weather .forecast .details .temperatures {
+  display: none;
+}
+@media only screen and (min-width: 320px) {
+  .weather .forecast .details .temperatures {
+    display: block;
+    float: right;
+    font-size: 0.6rem;
+    width: 40%;
+    margin: 5%;
+  }
+}
+.weather .forecast .details .temperatures .minimum {
+  display: block;
+}
+.weather .forecast .details .temperatures .maximum {
+  display: block;
+}
+.offers {
+  clear: left;
+  padding: 2%;
+  margin-top: 0.5rem;
+  background-color: #f0f0f0;
+}
+.offers ul {
+  width: 100%;
+  font-size: 0;
+  display: block;
+}
+.offers ul li:nth-child(5) {
+  display: none;
+}
+@media only screen and (min-width: 320px) {
+  .offers ul li:nth-child(5) {
+    display: inline-block;
+  }
+}
+.offers ul li:nth-child(6) {
+  display: none;
+}
+@media only screen and (min-width: 320px) {
+  .offers ul li:nth-child(6) {
+    display: inline-block;
+  }
+}
+.offers ul li:nth-child(7) {
+  display: none;
+}
+@media only screen and (min-width: 620px) {
+  .offers ul li:nth-child(7) {
+    display: inline-block;
+  }
+}
+.offers ul li:nth-child(8) {
+  display: none;
+}
+@media only screen and (min-width: 620px) {
+  .offers ul li:nth-child(8) {
+    display: inline-block;
+  }
+}
+.offers ul li {
+  display: inline-block;
+  font-size: 1rem;
+  width: 100%;
+  margin: 0.3rem 0;
+}
+@media only screen and (min-width: 320px) and (max-width: 459px) {
+  .offers ul li {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 460px) and (max-width: 619px) {
+  .offers ul li {
+    width: 33.333333333333336%;
+  }
+}
+@media only screen and (min-width: 620px) {
+  .offers ul li {
+    width: 25%;
+  }
+}
+.offers .offer {
+  display: block;
+}
+.offers .offer span {
+  font-size: 0.7rem;
+  display: block;
+  margin-left: 3%;
+}
+.offers .offer .title {
+  display: block;
+  margin-left: 3%;
+}
+@media only screen and (min-width: 320px) {
+  .offers .offer .title {
+    font-size: 0.8rem;
+  }
+}
+@media only screen and (min-width: 460px) {
+  .offers .offer .title {
+    font-size: 0.7rem;
+  }
+}
+.offers .offer img {
+  display: block;
+  max-width: 95%;
+  max-height: 60%;
+  margin: 0.3rem auto 0.3rem;
 }

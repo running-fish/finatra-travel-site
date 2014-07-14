@@ -7,8 +7,14 @@
                 <li>
                     <span class="forecast">
                         <span class="date">{{day}}</span>
-                        <img src="http://openweathermap.org/img/w/{{icon}}.png"
-                             alt="{{summary}}" title="{{summary}}"/>
+                        <span class="details">
+                            <img src="http://openweathermap.org/img/w/{{icon}}.png"
+                                 alt="{{summary}}" title="{{summary}}"/>
+                            <span class="temperatures">
+                                <span class="maximum">{{maximum}} &deg;C</span>
+                                <span class="minimum">{{minimum}} &deg;C</span>
+                            </span>
+                        </span>
                     </span>
                 </li>
             {{/forecasts}}

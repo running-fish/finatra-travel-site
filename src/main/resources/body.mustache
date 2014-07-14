@@ -8,9 +8,9 @@
         <title>getaway - plan your next escape here</title>
     </head>
     <body>
-        <div id="wrapper">
-            <div id="banner">
-                <span id="logo">getaway . . .</span>
+        <div class="wrapper">
+            <div class="banner">
+                <span class="logo">getaway . . .</span>
                 {{#user}}
                     <span id="logoutlink"><a name="logout">logout</a></span>
                 {{/user}}
@@ -21,12 +21,12 @@
             <div class="nav">
                 <a href="/">home</a> <a href="/news">news</a> <a href="/offers">offers</a>
             </div>
-            <div id="content">
+            <div class="content">
                 {{$content}}{{/content}}
                 {{> fragments/adverts}}
             </div>
-            <div id="footer">
-                <div id="credits">
+            <div class="footer">
+                <div class="credits">
                     Images: <a href="http://www.freephotosbank.com">www.freephotosbank.com</a>
                     <br/>
                     Weather: <a href="http://openweathermap.org/api">OpenWeatherMap</a>
