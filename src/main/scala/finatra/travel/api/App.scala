@@ -17,7 +17,6 @@ package finatra.travel.api
 
 import com.twitter.finatra._
 import finatra.travel.api.controllers.{OffersController, LoginController, HomeController}
-import finatra.travel.api.services._
 
 object App extends FinatraServer {
 
@@ -25,7 +24,7 @@ object App extends FinatraServer {
   System.setProperty("com.twitter.finatra.config.port", ":9000")
 
   private val applicationSecret = flag("applicationSecret",
-    "woiegjv*j49ux^gew9)ijew,@-,mweHE9d(&dr3$", "The secret used for cookie signing")
+    "3Aq1o?MUpq0IN>/oG^8DrWaPEKYBx5hbc]CrvO/n@=2?cKakD82[Ofgh8bokHQV?", "The secret used for cookie signing")
 
   register(new HomeController(applicationSecret()))
   register(new LoginController(applicationSecret()))
