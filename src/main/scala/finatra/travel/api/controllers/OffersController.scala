@@ -16,25 +16,27 @@
 package finatra.travel.api.controllers
 
 import finatra.travel.api.services._
-import com.twitter.finatra.ContentType.{Html, Json}
-import finatra.travel.api.views.HomePageView
 import com.twitter.util.Future
-import GeoLocator.locate
+import finatra.travel.api.services.Loyalty
+import finatra.travel.api.services.Advert
+import finatra.travel.api.services.User
+import finatra.travel.api.services.Profile
+import finatra.travel.api.views.OffersPageView
+import com.twitter.finatra.ContentType.{Html, Json}
 
-class HomeController(secret: String)
+class OffersController(secret: String)
   extends AuthController(secret)
-  with ProfileService with LoyaltyService with OffersService with AdvertService with WeatherService {
+  with ProfileService with LoyaltyService with OffersService with AdvertService {
 
-  get("/") {
+  get("/offers") {
     OptionalAuth {
       request => {
 
-        weatherAdvertsOffers(request) flatMap {
+        advertsOffers(request.user, 4) flatMap {
           result => {
-            val forecast = result._1
-            val adverts = result._2._1
-            val offers = result._2._2
-            val view = HomePageView.from(request.user, offers.take(4), adverts, forecast)
+            val adverts = result._1
+            val offers = result._2
+            val view = OffersPageView.from(request.user, offers, adverts)
             log.info(view.toString)
             respondTo(request) {
               case _:Json => render.json(view).toFuture
@@ -46,16 +48,10 @@ class HomeController(secret: String)
     }
   }
 
-  def weatherAdvertsOffers(request: OptionalUserRequest): Future[(Option[DailyForecast], (List[Advert], List[Offer]))] = {
-    val location = locate(request)
-    val futureForecast: Future[Option[DailyForecast]] = weatherService.forecast(location.cityId, 5)
-    val futureAdvertsOffers: Future[(List[Advert], List[Offer])] = profileLoyalty(request.user) flatMap {
-        advertsOffers(5)
+  def advertsOffers(user: Option[User], numberOfAdverts: Int): Future[(List[Advert], List[Offer])] = {
+    profileLoyalty(user) flatMap {
+      advertsOffers(numberOfAdverts)
     }
-    for {
-      forecast <- futureForecast
-      advertsOffers <- futureAdvertsOffers
-    } yield (forecast, advertsOffers)
   }
 
   def profileLoyalty(user: Option[User]): Future[(Option[Profile], Option[Loyalty])] = {
@@ -76,3 +72,4 @@ class HomeController(secret: String)
     } yield(adverts, offers)
   }
 }
+
