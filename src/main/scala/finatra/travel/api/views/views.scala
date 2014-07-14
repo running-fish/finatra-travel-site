@@ -7,7 +7,8 @@ case class OffersView(offers: List[Offer])
 
 case class AdvertsView(adverts: List[Advert])
 
-case class HomeView(user: Option[User], offers: Option[OffersView], adverts: Option[AdvertsView], assets: String = "") extends View {
+case class HomeView(user: Option[User], offers: Option[OffersView], adverts: Option[AdvertsView],
+                    mainAdvert: Option[Advert], assets: String = "") extends View {
   def template: String = "home.mustache"
 }
 
@@ -16,7 +17,8 @@ object HomeView {
     HomeView(
       user,
       if (offers.isEmpty) None else Some(OffersView(offers)),
-      if (adverts.isEmpty) None else Some(AdvertsView(adverts))
+      if (adverts.isEmpty) None else Some(AdvertsView(adverts.take(4))),
+      if (adverts.size > 4) Some(adverts(4)) else None
     )
   }
 }

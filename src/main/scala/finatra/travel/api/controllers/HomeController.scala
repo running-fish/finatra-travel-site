@@ -31,7 +31,7 @@ class HomeController(secret: String, profileService: ProfileService, loyaltyServ
       request => {
 
         profileLoyalty(request.user) flatMap {
-          advertsOffers(4)
+          advertsOffers(5)
         } flatMap {
           adsAndOffers => {
             val adverts = adsAndOffers._1
