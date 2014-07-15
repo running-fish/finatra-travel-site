@@ -76,7 +76,7 @@
           <launchers>
             <launcher>
               <id>main</id>
-              <mainClass>finatra.travel.api.finatra-travel-api.App</mainClass>
+              <mainClass>finatra.travel.site.App</mainClass>
             </launcher>
             <!-- you could define other launcher -->
           </launchers>
@@ -108,7 +108,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>finatra.travel.api.finatra-travel-api.App</mainClass>
+              <mainClass>finatra.travel.site.App</mainClass>
             </manifest>
           </archive>
         </configuration>
