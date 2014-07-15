@@ -24,9 +24,10 @@ class ProfileService(host: String, baseUrl: String) {
   private val client = new SomethingOrNothingRestClient(host)
 
   def profile(user: Option[User]): Future[Option[Profile]] = {
-    user match {
-      case Some(u) => client.get[Profile](s"$baseUrl/user/${u.id}")
-      case _ => Future.value(None)
+    user.map {
+      u => client.get[Profile](s"$baseUrl/user/${u.id}")
+    }.getOrElse{
+      Future.value(None)
     }
   }
 }

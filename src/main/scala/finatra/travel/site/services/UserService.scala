@@ -28,9 +28,10 @@ class UserService(host: String, baseUrl: String) {
   private val client = new SomethingOrNothingRestClient(host)
 
   def user(id: Option[String]): Future[Option[User]] = {
-    id match {
-      case Some(i) => client.get[User](s"$baseUrl?id=$i")
-      case _ => Future.value(None)
+    id.map{
+      userId => client.get[User](s"$baseUrl?id=$userId")
+    }.getOrElse{
+      Future.value(None)
     }
   }
 }

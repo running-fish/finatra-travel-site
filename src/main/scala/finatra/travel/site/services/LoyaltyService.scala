@@ -24,9 +24,10 @@ class LoyaltyService(host: String, baseUrl: String) {
   private val client = new SomethingOrNothingRestClient(host)
 
   def loyalty(user: Option[User]): Future[Option[Loyalty]] = {
-    user match {
-      case Some(u) => client.get[Loyalty](s"$baseUrl/user/${u.id}")
-      case _ => Future.value(None)
+    user.map {
+      u => client.get[Loyalty](s"$baseUrl/user/${u.id}")
+    }.getOrElse {
+      Future.value(None)
     }
   }
 }
