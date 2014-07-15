@@ -1,14 +1,11 @@
 package finatra.travel.site.controllers
 
-import java.util.Base64
 import org.jboss.netty.util.CharsetUtil
 import com.twitter.finagle.http.{CookieMap, Cookie}
 import javax.crypto.spec.SecretKeySpec
 import javax.crypto.Mac
 import java.net.{URLDecoder, URLEncoder}
 import scala.util.control.NonFatal
-import com.twitter.logging.Logger
-import com.twitter.finatra.config
 
 /**
  * Derived from Play's CookieBaker
@@ -71,12 +68,8 @@ class CookieEncoder(signer: Signer) {
 
 class Verifier(signer: Signer) {
 
-  def log = Logger(config.logNode())
-
   def verify(key: String, data: String, signature: String) = {
     val calculatedSignature = signer.sign(key, data)
-    log.info(s"Calculated Signature: $calculatedSignature")
-    log.info(s"Signature: $signature")
     compare(signature, calculatedSignature)
   }
 
@@ -95,8 +88,6 @@ class Verifier(signer: Signer) {
 
 class CookieDecoder(verifier: Verifier) {
 
-  def log = Logger(config.logNode())
-
   private def urlDecode(data: String) = {
     data
       .split("&")
@@ -108,9 +99,7 @@ class CookieDecoder(verifier: Verifier) {
   def decode(key: String, data: String): Map[String, String] = {
     try {
         val split = data.split("-", 2)
-        log.info(s"Split:${split(0)}:${split(1)}")
         val message = split.tail.mkString("-")
-        log.info(s"Message:$message")
         if (verifier.verify(key, message, split(0))) {
           urlDecode(message)
         } else {
