@@ -1,6 +1,6 @@
-Finatra Travel API
-==================
+Finatra Travel Site
+===================
 
-Noddy travel site API implementation using finatra.
+Noddy travel site using finatra.
 
 

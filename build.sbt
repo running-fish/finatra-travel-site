@@ -1,4 +1,4 @@
-name := "finatra-travel-api"
+name := "finatra-travel-site"
 
 version := "0.0.1-SNAPSHOT"
 
