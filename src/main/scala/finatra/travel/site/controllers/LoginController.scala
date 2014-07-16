@@ -17,10 +17,12 @@ package finatra.travel.site.controllers
 
 import com.twitter.finatra.{Request, ResponseBuilder, Controller}
 import finatra.travel.site.services.{LoginData, User}
-import com.twitter.util.Future
+import com.twitter.util.{Duration, Future}
 import com.fasterxml.jackson.databind.{JsonMappingException, DeserializationFeature, ObjectMapper}
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.twitter.finagle.http.Cookie
+import java.util.concurrent.TimeUnit
 
 class LoginController(secret: String) extends Controller with Session with LoginService {
 
@@ -39,6 +41,14 @@ class LoginController(secret: String) extends Controller with Session with Login
       } catch {
         case jme: JsonMappingException => invalidLoginSubmission
       }
+    }
+  }
+
+  get("/logout") {
+    request => {
+      val cookie = new Cookie("GETAWAY_SESSION", "")
+      cookie.maxAge = Duration(0, TimeUnit.SECONDS)
+      render.status(303).header("Location", "/").cookie(cookie).toFuture
     }
   }
 
