@@ -23,7 +23,7 @@ import GeoLocator.locate
 
 class HomeController(secret: String)
   extends AuthController(secret)
-  with ProfileService with LoyaltyService with OffersService with AdvertService with WeatherService with Composed {
+  with ProfileService with LoyaltyService with OffersService with AdvertService with WeatherService with ComposedServices {
 
   get("/") {
     OptionalAuth {

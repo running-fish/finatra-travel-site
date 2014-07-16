@@ -22,7 +22,7 @@ import finatra.travel.site.services.Advert
 import finatra.travel.site.services.Profile
 import finatra.travel.site.services.User
 
-trait Composed {
+trait ComposedServices {
   self: ProfileService with LoyaltyService with AdvertService with OffersService =>
 
   def profileLoyalty(user: Option[User]): Future[(Option[Profile], Option[Loyalty])] = {

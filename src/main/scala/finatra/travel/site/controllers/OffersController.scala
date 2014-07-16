@@ -24,7 +24,7 @@ import com.twitter.finatra.ContentType.{Html, Json}
 
 class OffersController(secret: String)
   extends AuthController(secret)
-  with ProfileService with LoyaltyService with OffersService with AdvertService with Composed {
+  with ProfileService with LoyaltyService with OffersService with AdvertService with ComposedServices {
 
   get("/offers") {
     OptionalAuth {
