@@ -16,7 +16,10 @@ class LoginControllerSpec extends FlatSpecHelper with ShouldMatchers with WireMo
   server.register(loginController)
 
   "A json post request to login" should "return 400 if form fields are missing" in {
-    post("/login", Map("username" -> "fred"), Map("Accept" -> "application/json"))
+    post(path = "/login",
+      headers = Map("Accept" -> "application/json", "Content-Type" -> "application/json"),
+      body = "{ \"username\":\"fred\"}"
+    )
 
     response.code should be(400)
     response.originalResponse.contentType should be(Some("application/json"))
@@ -24,13 +27,14 @@ class LoginControllerSpec extends FlatSpecHelper with ShouldMatchers with WireMo
 
   it should "return 404 with an error message if the user is not found" in {
     stubFor(WireMock.post(urlEqualTo("/login")).
-      withRequestBody(equalToJson("{ \"username\":\"fred\", \"password\":\"betty\" }"))
+      withRequestBody(equalToJson("{ \"username\":\"fred\", \"password\":\"barney\" }"))
       willReturn(aResponse().
       withStatus(404)))
 
-    post("/login",
-      Map("username" -> "fred", "password" -> "betty"),
-      Map("Accept" -> "application/json", "Content-Type" -> "application/x-www-form-urlencoded"))
+    post(path = "/login",
+      headers = Map("Accept" -> "application/json", "Content-Type" -> "application/x-www-form-urlencoded"),
+      body = "{ \"username\":\"fred\", \"password\":\"barney\"}"
+    )
 
     response.code should be(404)
 
@@ -44,9 +48,10 @@ class LoginControllerSpec extends FlatSpecHelper with ShouldMatchers with WireMo
       "{ \"id\":\"456\", \"name\":\"Fred\", \"username\":\"fredf\" }"
     )
 
-    post("/login",
-      Map("username" -> "fred", "password" -> "barney"),
-      Map("Accept" -> "application/json", "Content-Type" -> "application/x-www-form-urlencoded"))
+    post(path = "/login",
+      headers = Map("Accept" -> "application/json", "Content-Type" -> "application/x-www-form-urlencoded"),
+      body = "{ \"username\":\"fred\", \"password\":\"barney\"}"
+    )
 
     response.code should be(200)
 

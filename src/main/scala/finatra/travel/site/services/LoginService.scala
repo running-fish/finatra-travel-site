@@ -17,7 +17,10 @@ package finatra.travel.site.services
 
 import com.twitter.util.Future
 
-case class LoginData(username: String, password: String)
+case class LoginData(username: String, password: String) {
+  require(username != null && !username.trim.isEmpty)
+  require(password != null && !password.trim.isEmpty)
+}
 
 class LoginService(host: String, baseUrl: String) {
 

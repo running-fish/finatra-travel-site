@@ -18,7 +18,7 @@ package finatra.travel.site.controllers
 import com.twitter.finatra.{Request, ResponseBuilder, Controller}
 import finatra.travel.site.services.{LoginData, User}
 import com.twitter.util.Future
-import com.fasterxml.jackson.databind.{DeserializationFeature, ObjectMapper}
+import com.fasterxml.jackson.databind.{JsonMappingException, DeserializationFeature, ObjectMapper}
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 
@@ -31,18 +31,13 @@ class LoginController(secret: String) extends Controller with Session with Login
   mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
   mapper.registerModule(DefaultScalaModule)
 
-  post("/loginJson") {
-    implicit request => {
-      val loginData = mapper.readValue[LoginData](request.getContentString())
-      login(loginData.username, loginData.password)
-    }
-  }
-
   post("/login") {
     implicit request => {
-      (request.params.get("username"), request.params.get("password")) match {
-        case (Some(username), Some(password)) => login(username, password)
-        case _ => invalidLoginSubmission
+      try {
+        val loginData = mapper.readValue[LoginData](request.getContentString())
+        login(loginData.username, loginData.password)
+      } catch {
+        case jme: JsonMappingException => invalidLoginSubmission
       }
     }
   }
@@ -64,16 +59,16 @@ class LoginController(secret: String) extends Controller with Session with Login
     }
   }
 
+  private def invalidLoginSubmission()(implicit request: Request): Future[ResponseBuilder] = {
+    render.json(Map.empty).status(400).toFuture
+  }
+
   private def userFound(user: User)(implicit request: Request): Future[ResponseBuilder] = {
     render.json(Map.empty).cookie(toCookie(secret, user.id)).toFuture
   }
 
   private def userNotFound()(implicit request: Request): Future[ResponseBuilder] = {
     render.status(404).json(Map("error" -> invalidMessage)).toFuture
-  }
-
-  private def invalidLoginSubmission()(implicit request: Request): Future[ResponseBuilder] = {
-    render.json(Map.empty).status(400).toFuture
   }
 
   private def loginException(e: Throwable)(implicit request: Request) = {
