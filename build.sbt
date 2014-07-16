@@ -5,7 +5,7 @@ version := "0.0.1-SNAPSHOT"
 scalaVersion := "2.10.3"
 
 libraryDependencies ++= Seq(
-  "com.twitter" %% "finatra" % "1.5.2",
+  "com.twitter" %% "finatra" % "1.5.3",
   "org.mockito" % "mockito-core" % "1.9.0" % "test",
   "org.jsoup" % "jsoup" % "1.7.3" % "test",
   "com.github.tomakehurst" % "wiremock" % "1.46" % "test",
