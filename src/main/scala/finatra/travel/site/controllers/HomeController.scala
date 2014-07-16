@@ -23,7 +23,7 @@ import GeoLocator.locate
 
 class HomeController(secret: String)
   extends AuthController(secret)
-  with ProfileService with LoyaltyService with OffersService with AdvertService with WeatherService {
+  with ProfileService with LoyaltyService with OffersService with AdvertService with WeatherService with Composed {
 
   get("/") {
     OptionalAuth {
@@ -56,23 +56,5 @@ class HomeController(secret: String)
       forecast <- futureForecast
       advertsOffers <- futureAdvertsOffers
     } yield (forecast, advertsOffers)
-  }
-
-  def profileLoyalty(user: Option[User]): Future[(Option[Profile], Option[Loyalty])] = {
-    val futureProfile = profileService.profile(user)
-    val futureLoyalty = loyaltyService.loyalty(user)
-    for {
-      profile <- futureProfile
-      loyalty <- futureLoyalty
-    } yield (profile, loyalty)
-  }
-
-  def advertsOffers(advertsCount: Int)(profileLoyalty: (Option[Profile], Option[Loyalty])): Future[(List[Advert], List[Offer])] = {
-    val futureAdverts = advertService.adverts(advertsCount, profileLoyalty._1)
-    val futureOffers = offersService.offers(profileLoyalty._1, profileLoyalty._2)
-    for {
-      adverts <- futureAdverts
-      offers <- futureOffers
-    } yield(adverts, offers)
   }
 }
