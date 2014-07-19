@@ -52,7 +52,7 @@ body {
 }
 @media only screen and (min-width: 720px) {
   body {
-    background: #f4ba70 url('/images/footprints.jpg') repeat;
+    background: #f4ba70 url('/assets/images/footprints.jpg') repeat;
   }
 }
 @media only screen and (max-width: 319px) {
@@ -689,4 +689,85 @@ body {
   max-width: 95%;
   max-height: 60%;
   margin: 0.3rem auto 0.3rem;
+}
+.news {
+  clear: left;
+  padding: 2%;
+  margin-top: 0.5rem;
+  background-color: #f0f0f0;
+}
+.news ul {
+  width: 100%;
+  font-size: 0;
+  display: block;
+}
+.news ul li {
+  display: inline-block;
+  font-size: 1rem;
+  width: 100%;
+  margin: 0.3rem 0;
+}
+@media only screen and (min-width: 620px) {
+  .news ul li {
+    width: 50%;
+  }
+}
+.news ul li .news-item {
+  display: block;
+}
+.news ul li .news-item span {
+  font-size: 0.6rem;
+  display: block;
+  margin-left: 3%;
+}
+.news ul li .news-item .headline {
+  font-size: 0.7rem;
+  display: block;
+  margin-left: 3%;
+}
+@media only screen and (min-width: 320px) {
+  .news ul li .news-item .headline {
+    font-size: 0.8rem;
+  }
+}
+@media only screen and (min-width: 460px) {
+  .news ul li .news-item .headline {
+    font-size: 0.7rem;
+  }
+}
+.news ul li .news-item img {
+  display: block;
+  max-width: 95%;
+  max-height: 60%;
+  margin: 0.3rem auto 0.3rem;
+}
+@media only screen and (min-width: 360px) and (max-width: 619px) {
+  .news ul li .news-item img {
+    max-width: 45%;
+    float: left;
+  }
+}
+@media only screen and (min-width: 620px) {
+  .news ul li .news-item img {
+    max-width: 95%;
+  }
+}
+@media only screen and (min-width: 360px) and (max-width: 619px) {
+  .news ul li .news-item .text {
+    max-width: 50%;
+    float: right;
+    margin: 0.3rem auto 0.3rem;
+  }
+}
+.news ul li .news-item .text .stand-first {
+  margin-bottom: 0.2rem;
+}
+@media only screen and (min-width: 320px) {
+  .news ul li .news-item .text .stand-first {
+    font-size: 0.7rem;
+  }
+}
+.news ul li .news-item .text a {
+  text-decoration: none;
+  color: #808080;
 }

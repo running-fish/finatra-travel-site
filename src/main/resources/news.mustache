@@ -1,34 +1,23 @@
 {{<body}}
 {{$content}}
     {{#news}}
-        <div id="news">
+        <div class="news">
             <h2>News</h2>
             <ul>
                 {{#news}}
                     <li>
-                        <span class="news">
-                            <span class="newstitle">@newsItem.headline</span>
-                            <img class="newsimage" src="{{assets}}/{{image}}" alt="{{title}}" title="{{title}}">
+                        <span class="news-item">
+                            <span class="headline">{{headline}}</span>
+                            <img src="{{image}}" alt="{{title}}" title="{{title}}">
+                            <span class="text">
+                                <span class="stand-first">{{standFirst}}</span>
+                                <span class="read-more"><a href="{{link}}">Read more ...</a></span>
+                            </span>
                         </span>
                     </li>
                 {{/news}}
             </ul>
         </div>
     {{/news}}
-    {{#offers}}
-        <div id="offers">
-            <h2>Offers</h2>
-            <ul>
-                {{#offers}}
-                    <li>
-                        <span class="offer">
-                            <span class="offertitle">{{title}}</span>
-                            <img class="offerimage" src="{{assets}}/{{image}}" alt="{{title}}" title="{{title}}">
-                        </span>
-                    </li>
-                {{/offers}}
-            </ul>
-        </div>
-    {{/offers}}
 {{/content}}
 {{/body}}

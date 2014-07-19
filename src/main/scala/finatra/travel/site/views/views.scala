@@ -1,10 +1,12 @@
 package finatra.travel.site.views
 
-import finatra.travel.site.services.DailyForecast
+import finatra.travel.site.services._
 import com.twitter.finatra.View
-import finatra.travel.site.services.User
 import finatra.travel.site.services.Offer
 import finatra.travel.site.services.Advert
+import finatra.travel.site.services.User
+import scala.Some
+import finatra.travel.site.services.DailyForecast
 
 case class OffersView(offers: List[Offer])
 
@@ -49,6 +51,22 @@ object OffersPageView {
       user,
       if (offers.isEmpty) None else Some(OffersView(offers)),
       if (adverts.isEmpty) None else Some(AdvertsView(adverts))
+    )
+  }
+}
+
+case class NewsView(news: List[NewsItem])
+
+case class NewsPageView(user: Option[User],
+                        news: Option[NewsView]) extends View {
+  def template: String = "news.mustache"
+}
+
+object NewsPageView {
+  def from(user: Option[User], news: List[NewsItem]): NewsPageView = {
+    NewsPageView(
+      user,
+      if (news.isEmpty) None else Some(NewsView(news))
     )
   }
 }

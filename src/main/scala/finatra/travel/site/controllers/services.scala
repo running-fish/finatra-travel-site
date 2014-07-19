@@ -74,3 +74,11 @@ trait WeatherService {
     new finatra.travel.site.services.WeatherService(host(), url())
   }
 }
+
+trait NewsService {
+  val newsService = {
+    val host = App.flag("news.host", "localhost:9100", "The host:port for the News Service")
+    val url = App.flag("news.url", "/news", "The base url for the News Service")
+    new finatra.travel.site.services.NewsService(host(), url())
+  }
+}

@@ -16,7 +16,7 @@
 package finatra.travel.site
 
 import com.twitter.finatra._
-import finatra.travel.site.controllers.{OffersController, LoginController, HomeController}
+import finatra.travel.site.controllers.{NewsController, OffersController, LoginController, HomeController}
 
 object App extends FinatraServer {
 
@@ -29,4 +29,5 @@ object App extends FinatraServer {
   register(new HomeController(applicationSecret()))
   register(new LoginController(applicationSecret()))
   register(new OffersController(applicationSecret()))
+  register(new NewsController(applicationSecret()))
 }
