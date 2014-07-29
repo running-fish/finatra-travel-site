@@ -49,6 +49,10 @@ class HomeControllerSpec extends FlatSpecHelper with ShouldMatchers with WireMoc
     doc.select("span.offer") should have size 1
     doc.select("span.advert") should have size 4
     doc.select("span#loginlink") should have size 1
-    doc.select("span#logoutlink") should have size 0
+    doc.select("span#loginlink").hasClass("hidden") should be(false)
+    doc.select("span#loginlink").hasClass("visible") should be(true)
+    doc.select("span#logoutlink") should have size 1
+    doc.select("span#logoutlink").hasClass("hidden") should be(true)
+    doc.select("span#logoutlink").hasClass("visible") should be(false)
   }
 }

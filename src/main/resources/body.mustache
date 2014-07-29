@@ -11,12 +11,8 @@
         <div class="wrapper">
             <div class="banner">
                 <span class="logo">getaway . . .</span>
-                {{#user}}
-                    <span id="logoutlink"><a name="logout">logout</a></span>
-                {{/user}}
-                {{^user}}
-                    <span id="loginlink"><a name="login">login</a></span>
-                {{/user}}
+                <span id="logoutlink" class="{{#user}}visible{{/user}}{{^user}}hidden{{/user}}"><a name="logout">logout</a></span>
+                <span id="loginlink" class="{{#user}}hidden{{/user}}{{^user}}visible{{/user}}"><a name="login">login</a></span>
             </div>
             <div class="nav">
                 <a href="/">home</a> <a href="/news">news</a> <a href="/offers">offers</a>
@@ -30,6 +26,8 @@
                     Images: <a href="http://www.freephotosbank.com">www.freephotosbank.com</a>
                     <br/>
                     Weather: <a href="http://openweathermap.org/api">OpenWeatherMap</a>
+                    <br/>
+                    News: <a href="http://www.theguardian.com/travel">The Guardian</a>
                 </div>
             </div>
 

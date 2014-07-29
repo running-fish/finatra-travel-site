@@ -1,12 +1,14 @@
 html,body,div,span,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,em,img,strong,sub,sup,b,u,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;font-family:sans-serif;font-size:100%}
 li{list-style:none}
-body{background:#f4ba70}@media only screen and (min-width:720px){body{background:#f4ba70 url('/assets/images/footprints.jpg') repeat}}@media only screen and (max-width:319px){body{font-size:0.7rem}}@media only screen and (min-width:320px) and (max-width:359px){body{font-size:0.9rem}}
+body{background:#f4ba70}@media only screen and (min-width:720px){body{background:#f4ba70 url('/images/footprints.jpg') repeat}}@media only screen and (max-width:319px){body{font-size:0.7rem}}@media only screen and (min-width:320px) and (max-width:359px){body{font-size:0.9rem}}
 .wrapper{width:100%;max-width:800px;margin:0 auto}@media only screen and (min-width:720px) and (max-width:859px){.wrapper{width:90%}}@media only screen and (min-width:860px){.wrapper{width:80%}}
 .banner{width:100%;background-color:#85c1f5;padding-bottom:0.2rem}@media only screen and (min-width:320px) and (max-width:359px){.banner{padding-bottom:0.3rem}}@media only screen and (min-width:360px){.banner{padding-bottom:0.5rem}}@media only screen and (min-width:720px){.banner{margin-top:2rem}}
 .logo{font-family:'Chewy',cursive;font-size:2.2rem;color:#e96d63;margin-left:0.3rem}@media only screen and (max-width:319px){.logo{font-size:1.7rem}}@media only screen and (min-width:320px) and (max-width:359px){.logo{font-size:2.2rem}}@media only screen and (min-width:360px) and (max-width:479px){.logo{font-size:2.5rem}}
 .loginlogout{float:right;margin-right:1rem;color:#f4ba70;margin-top:0.7rem}@media only screen and (min-width:320px) and (max-width:359px){.loginlogout{margin-top:1rem}}@media only screen and (min-width:360px) and (max-width:479px){.loginlogout{margin-top:1.3rem}}.loginlogout a{text-decoration:none;color:#f4ba70;cursor:pointer}
 #loginlink{float:right;margin-right:1rem;color:#f4ba70;margin-top:0.7rem}@media only screen and (min-width:320px) and (max-width:359px){#loginlink{margin-top:1rem}}@media only screen and (min-width:360px) and (max-width:479px){#loginlink{margin-top:1.3rem}}#loginlink a{text-decoration:none;color:#f4ba70;cursor:pointer}
 #logoutlink{float:right;margin-right:1rem;color:#f4ba70;margin-top:0.7rem}@media only screen and (min-width:320px) and (max-width:359px){#logoutlink{margin-top:1rem}}@media only screen and (min-width:360px) and (max-width:479px){#logoutlink{margin-top:1.3rem}}#logoutlink a{text-decoration:none;color:#f4ba70;cursor:pointer}
+.visible{display:initial}
+.hidden{display:none}
 .nav{width:100%;background-color:#4a789c;padding-top:0.2rem;padding-bottom:0.2rem;color:#f0f0f0}.nav a{text-decoration:none;color:#f0f0f0;padding-right:0.4rem;padding-left:0.4rem}
 .headblock{background-color:#f0f0f0}
 .more{font-size:0.7rem;color:#808080;text-decoration:none;cursor:pointer}
