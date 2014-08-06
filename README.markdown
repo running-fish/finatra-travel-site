@@ -1,6 +1,6 @@
 Finatra Travel Site
 ===================
 
-Noddy travel site using finatra.
+A playground for experimenting with finatra.
 
 
