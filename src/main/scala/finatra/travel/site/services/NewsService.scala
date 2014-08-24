@@ -27,26 +27,7 @@ import org.jboss.netty.handler.codec.http.{DefaultHttpRequest, HttpMethod, HttpV
 
 import scala.xml.XML
 
-case class Image(width: Int, height: Int, url: String) {
-  def isLargerThan(other: Image) = {
-    this.height > other.height && this.width > other.width
-  }
-}
-
-case class NewsItem(headline: String, description: String, link: String, images: Seq[Image]) {
-
-  val standFirst = {
-    var unescaped = StringEscapeUtils.unescapeHtml(description)
-    if (unescaped.startsWith("<p>")) {
-      unescaped = unescaped.substring(3, unescaped.indexOf('<', 3))
-    } else {
-      unescaped = unescaped.substring(0, unescaped.indexOf('<'))
-    }
-    unescaped.replaceAll("\\s+", " ").trim
-  }
-
-  val image = images.sortWith((a, b) => a.isLargerThan(b)).head.url
-}
+case class NewsItem(headline: String, standFirst: String, link: String, image: String)
 
 class NewsService(host: String, baseUrl: String) {
 
@@ -84,6 +65,12 @@ class NewsService(host: String, baseUrl: String) {
   }
 }
 
+case class Image(width: Int, height: Int, url: String) {
+  def isLargerThan(other: Image) = {
+    this.height > other.height && this.width > other.width
+  }
+}
+
 class GruaniadNewsParser {
 
   def parse(stream: InputStream): Seq[NewsItem] = {
@@ -101,8 +88,22 @@ class GruaniadNewsParser {
             Image(width, height, url)
           }
         }
-        NewsItem(title, description, link, images)
+        NewsItem(title, standFirst(description), link, image(images))
       }
     }
+  }
+
+  private def standFirst(description: String): String = {
+    var unescaped = StringEscapeUtils.unescapeHtml(description)
+    if (unescaped.startsWith("<p>")) {
+      unescaped = unescaped.substring(3, unescaped.indexOf('<', 3))
+    } else {
+      unescaped = unescaped.substring(0, unescaped.indexOf('<'))
+    }
+    unescaped.replaceAll("\\s+", " ").trim
+  }
+
+  private def image(images: Seq[Image]): String = {
+    images.sortWith((a, b) => a.isLargerThan(b)).head.url
   }
 }
