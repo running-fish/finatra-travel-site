@@ -88,12 +88,12 @@ class GruaniadNewsParser {
             Image(width, height, url)
           }
         }
-        NewsItem(title, standFirst(description), link, image(images))
+        NewsItem(title, standFirstFrom(description), link, largestImageUrlFrom(images))
       }
     }
   }
 
-  private def standFirst(description: String): String = {
+  private def standFirstFrom(description: String): String = {
     var unescaped = StringEscapeUtils.unescapeHtml(description)
     if (unescaped.startsWith("<p>")) {
       unescaped = unescaped.substring(3, unescaped.indexOf('<', 3))
@@ -103,7 +103,7 @@ class GruaniadNewsParser {
     unescaped.replaceAll("\\s+", " ").trim
   }
 
-  private def image(images: Seq[Image]): String = {
+  private def largestImageUrlFrom(images: Seq[Image]): String = {
     images.sortWith((a, b) => a.isLargerThan(b)).head.url
   }
 }
